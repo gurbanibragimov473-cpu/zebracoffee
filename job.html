@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Работа у нас — Zebra Coffee</title>
+  <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .job-hero {
+      text-align: center;
+      padding: 40px 20px 20px 20px;
+    }
+    .job-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .job-hero p {
+      color: #e0f7f7;
+      font-size: 1.15rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .form-container-box {
+      background: rgba(0, 90, 90, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 750px;
+      margin: 30px auto 60px auto;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+    .form-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .form-subtitle {
+      color: #e0f7f7;
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group label {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #ffffff;
+    }
+    .form-group label span.required {
+      color: #ff6b6b;
+    }
+    .form-group label span.optional {
+      font-weight: 400;
+      font-size: 0.85rem;
+      color: #a3e4d7;
+    }
+    .form-control {
+      background: rgba(0, 50, 50, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 14px;
+      padding: 14px 18px;
+      color: #ffffff;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+    .form-control:focus {
+      border-color: #ffffff;
+      background: rgba(0, 70, 70, 0.8);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+    select.form-control option {
+      background: #004d4d;
+      color: #ffffff;
+    }
+    .form-submit-btn {
+      width: 100%;
+      background: #ffffff;
+      color: #007a7a;
+      border: none;
+      padding: 16px;
+      border-radius: 30px;
+      font-weight: 900;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    .form-submit-btn:hover {
+      background: #e6ffff;
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 20, 20, 0.88);
+      backdrop-filter: blur(14px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 20000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-card {
+      background: linear-gradient(145deg, rgba(0, 60, 60, 0.98), rgba(0, 40, 40, 0.98));
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 28px;
+      padding: 42px 32px;
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 201, 201, 0.2);
+      transform: scale(0.88);
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+    .modal-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #a3e4d7;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .modal-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 16px;
+      line-height: 1.25;
+      letter-spacing: 0.5px;
+    }
+    .modal-text {
+      color: #ffffff;
+      font-size: 1.12rem;
+      font-weight: 700;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .progress-bar-container {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: #00c9c9;
+      transition: width 3s linear, background-color 0.4s ease;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #00c9c9;
+    }
+    .progress-bar-fill.failed {
+      background-color: #ff4d4d !important;
+      box-shadow: 0 0 12px #ff4d4d !important;
+    }
+    .modal-close-btn {
+      background: #ffffff;
+      color: #007a7a;
+      border: none;
+      padding: 14px 38px;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    .modal-close-btn:hover {
+      background: #e6ffff;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+    }
+    @media screen and (max-width: 600px) {
+      .form-container-box { padding: 25px 20px; }
+      .job-hero h1 { font-size: 2.2rem; }
+      .modal-card { padding: 30px 20px; }
+      .modal-title { font-size: 1.6rem; }
+      .modal-text { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo-container">
+        <img src="images/sdsa561da56d1a56DS.png" alt="Zebra Coffee" class="logo-img">
+        <div class="logo-brand-text">
+          <span class="logo-brand-title">ZEBRA COFFEE</span>
+          <span class="logo-brand-subtitle">Павлодар</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="menu.html">Меню</a></li>
+          <li><a href="about.html">О владельце</a></li>
+          <li><a href="zebra-coins.html">Zebra Coins</a></li>
+          <li><a href="addresses.html">Адреса</a></li>
+          <li><a href="job.html" class="active">Работа у нас</a></li>
+          <li><a href="creators.html">The Creator</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="job-hero">
+      <h1>ХОТИТЕ К НАМ В КОМАНДУ?</h1>
+      <p>Станьте частью семьи Zebra Coffee в Павлодаре, Экибастузе или Аксу!</p>
+    </div>
+
+    <div class="form-container-box">
+      <div class="form-title">Заполните анкету кандидата</div>
+      <div class="form-subtitle">Заполните форму ниже, и мы свяжемся с вами для проведения собеседования</div>
+
+      <form id="jobForm" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+          <label>Ваше ФИО <span class="required">*</span></label>
+          <input type="text" class="form-control" placeholder="Иванов Иван Иванович" required>
+        </div>
+
+        <div class="form-group">
+          <label>Номер телефона <span class="required">*</span></label>
+          <input type="tel" class="form-control" placeholder="+7 (707) 000-00-00" required>
+        </div>
+
+        <div class="form-group">
+          <label>Instagram <span class="optional">(необязательно)</span></label>
+          <input type="text" class="form-control" placeholder="@username">
+        </div>
+
+        <div class="form-group">
+          <label>Желаемая должность <span class="required">*</span></label>
+          <select class="form-control" required>
+            <option value="" disabled selected>Выберите должность</option>
+            <option value="barista">Бариста</option>
+            <option value="senior-barista">Старший бариста</option>
+            <option value="cashier">Кассир-продавец</option>
+            <option value="cleaner">Сотрудник чистоты</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>В какой точке хотели бы работать? <span class="required">*</span></label>
+          <select class="form-control" required>
+            <option value="" disabled selected>Выберите кофейню</option>
+            <optgroup label="Павлодар">
+              <option value="pav-satpayev">ул. Академика Сатпаева, 65 (ЖК Capital)</option>
+              <option value="pav-batyr">ул. Камзина, 67/1 (ТРЦ Batyr Mall)</option>
+              <option value="pav-pavlova">ул. Павлова, 50/10 (ЖК Ertis)</option>
+              <option value="pav-toraygyrov">ул. Торайгырова, 73</option>
+              <option value="pav-uni">ул. Павлова, 26/4</option>
+            </optgroup>
+            <optgroup label="Экибастуз">
+              <option value="eki-berkimbayev">ул. Естая Беркимбаева, 95/1</option>
+              <option value="eki-auezov-1">ул. Мухтара Ауэзова, 149/3</option>
+              <option value="eki-kiosk">ул. Мухтара Ауэзова, 49Б (киоск)</option>
+              <option value="eki-zhusup">ул. Машхур Жусупа, 52в/3</option>
+              <option value="eki-auezov-2">ул. Мухтара Ауэзова, 47Б</option>
+            </optgroup>
+            <optgroup label="Аксу">
+              <option value="aksu-park">ул. Ленина, 24/1 (Парк культуры)</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>E-mail <span class="optional">(необязательно)</span></label>
+          <input type="email" class="form-control" placeholder="example@mail.com">
+        </div>
+
+        <button type="submit" class="form-submit-btn">Отправить заявку</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="demoModal">
+    <div class="modal-card">
+      <div class="modal-badge" id="modalBadge">Демо-режим</div>
+      <div class="modal-title" id="modalTitle">Отправка заявки...</div>
+      <div class="modal-text" id="modalText">
+        Идёт подключение к серверу Zebra Coffee для передачи вашей анкеты...
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <button class="modal-close-btn" id="modalCloseBtn" onclick="closeModal()">Понятно</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Zebra Coffee — Павлодар. Создатель сайта: <strong>The Creator</strong></p>
+  </footer>
+
+  <script>
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const modal = document.getElementById('demoModal');
+      const progressFill = document.getElementById('progressFill');
+      const modalBadge = document.getElementById('modalBadge');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalText = document.getElementById('modalText');
+      const closeBtn = document.getElementById('modalCloseBtn');
+
+      modalBadge.innerText = "Подключение";
+      modalTitle.innerText = "Отправка заявки...";
+      modalText.innerText = "Идёт подключение к серверу Zebra Coffee для передачи вашей анкеты...";
+      progressFill.style.width = '0%';
+      progressFill.classList.remove('failed');
+      closeBtn.style.display = 'none';
+
+      modal.classList.add('active');
+
+      setTimeout(() => {
+        progressFill.style.width = '100%';
+      }, 50);
+
+      setTimeout(() => {
+        progressFill.classList.add('failed');
+        modalBadge.innerText = "Информация о портфолио";
+        modalTitle.innerText = "Демонстрация работы формы";
+        modalText.innerHTML = "Обратите внимание: анкета не отправляется, так как это демоверсия сайта-портфолио.<br><br>В ваших проектах вся информация с формы будет мгновенно и надежно поступать напрямую на вашу рабочую почту или в Telegram-бот компании.";
+        closeBtn.style.display = 'inline-block';
+      }, 3050);
+    }
+
+    function closeModal() {
+      document.getElementById('demoModal').classList.remove('active');
+      document.getElementById('jobForm').reset();
+    }
+  </script>
+</body>
+</html>

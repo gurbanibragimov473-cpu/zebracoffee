@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Программа лояльности — Zebra Coffee</title>
+  <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #007a7a;
+      color: #ffffff;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .loyalty-hero {
+      text-align: center;
+      padding: 55px 20px 25px 20px;
+    }
+    .loyalty-hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .loyalty-hero p {
+      color: #e0f7f7;
+      font-size: 1.2rem;
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .steps-section {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+    .section-heading {
+      font-size: 1.8rem;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .step-card {
+      background: rgba(0, 90, 90, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 30px 25px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-6px);
+      border-color: #ffffff;
+    }
+    .step-number {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffffff;
+      color: #007a7a;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .step-icon {
+      font-size: 2.5rem;
+      margin: 15px 0 10px 0;
+      display: block;
+    }
+    .step-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 0.95rem;
+      color: #e0f7f7;
+      line-height: 1.5;
+    }
+
+    .download-app-banner {
+      background: rgba(0, 90, 90, 0.65);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 24px;
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    .download-app-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .download-app-subtitle {
+      font-size: 1rem;
+      color: #e0f7f7;
+      margin-bottom: 25px;
+    }
+    .app-buttons-container {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #000000;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 12px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .store-btn:hover {
+      transform: translateY(-4px);
+      border-color: #ffffff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      background: #111111;
+    }
+    .store-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: currentColor;
+    }
+    .store-btn-text {
+      text-align: left;
+    }
+    .store-btn-text small {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #a3e4d7;
+      letter-spacing: 1px;
+    }
+    .store-btn-text span {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .feature-card {
+      background: rgba(0, 90, 90, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: #ffffff;
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .feature-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .feature-desc {
+      font-size: 0.95rem;
+      color: #e0f7f7;
+      line-height: 1.5;
+    }
+
+    .faq-wrapper {
+      max-width: 850px;
+      margin: 50px auto 70px auto;
+      padding: 0 20px;
+    }
+    .faq-search-box {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 90, 90, 0.65);
+      color: #ffffff;
+      font-size: 1rem;
+      margin-bottom: 25px;
+      outline: none;
+      backdrop-filter: blur(8px);
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+    .faq-search-box::placeholder {
+      color: #a3e4d7;
+    }
+    .faq-search-box:focus {
+      border-color: #ffffff;
+    }
+    .faq-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .faq-item {
+      background: rgba(0, 90, 90, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+    .faq-question {
+      padding: 22px 26px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      gap: 20px;
+    }
+    .faq-question span {
+      flex: 1;
+      text-align: left;
+    }
+    .faq-toggle-icon {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #ffffff;
+      transition: all 0.3s ease;
+    }
+    .faq-item.active .faq-toggle-icon {
+      transform: rotate(45deg);
+      background: #ffffff;
+      color: #007a7a;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      background: rgba(0, 50, 50, 0.6);
+      padding: 0 26px;
+      color: #e0f7f7;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+      padding: 20px 26px 24px 26px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .faq-answer strong {
+      color: #ffffff;
+    }
+
+    @media screen and (max-width: 768px) {
+      .loyalty-hero h1 { font-size: 2.1rem; }
+      .faq-question { font-size: 1rem; padding: 18px 20px; }
+      .store-btn { width: 100%; justify-content: center; box-sizing: border-box; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo-container">
+        <img src="images/sdsa561da56d1a56DS.png" alt="Zebra Coffee" class="logo-img">
+        <div class="logo-brand-text">
+          <span class="logo-brand-title">ZEBRA COFFEE</span>
+          <span class="logo-brand-subtitle">Павлодар</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="menu.html">Меню</a></li>
+          <li><a href="about.html">О владельце</a></li>
+          <li><a href="zebra-coins.html" class="active">Система скидок</a></li>
+          <li><a href="addresses.html">Адреса</a></li>
+          <li><a href="job.html">Работа у нас</a></li>
+          <li><a href="creators.html">The Creator</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="loyalty-hero">
+      <h1>ПРОГРАММА ЛОЯЛЬНОСТИ</h1>
+      <p>Копи баллы за каждую покупку, повышай свой рейтинг и получай скидку до 10% на всё меню в мобильном приложении!</p>
+    </div>
+
+    <div class="steps-section">
+      <div class="section-heading">Как начать копить и экономить?</div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <span class="step-icon">📱</span>
+          <div class="step-title">Установите приложение</div>
+          <div class="step-desc">Скачайте Zebra Coffee KZ из Google Play или App Store и зарегистрируйтесь за пару минут.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <span class="step-icon">📷</span>
+          <div class="step-title">Сканируйте QR</div>
+          <div class="step-desc">Показывайте QR-код из приложения бариста при каждой покупке любимого кофе.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <span class="step-icon">🎉</span>
+          <div class="step-title">Получайте выгоду</div>
+          <div class="step-desc">Зарабатывайте по 10 баллов за визит, повышайте уровень и забирайте скидку до 10%!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="download-app-banner">
+      <div class="download-app-title">СКАЧАЙ ПРИЛОЖЕНИЕ ZEBRA COFFEE KZ</div>
+      <div class="download-app-subtitle">Получай персональные скидки, копи баллы и отслеживай рейтинг прямо в телефоне</div>
+
+      <div class="app-buttons-container">
+        <a href="https://play.google.com/store/apps/details?id=kz.zebra_coffee.app&hl=ru" target="_blank" class="store-btn">
+          <svg viewBox="0 0 24 24">
+            <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L18.25,13.68C18.8,13.13 18.8,12.24 18.25,11.69L16.81,10.25L14.81,12.25L16.81,15.12M15.1,16.83L5.25,22.18L14.28,13.15L15.1,16.83M15.1,7.17L14.28,10.85L5.25,1.82L15.1,7.17Z"/>
+          </svg>
+          <div class="store-btn-text">
+            <small>Доступно в</small>
+            <span>Google Play</span>
+          </div>
+        </a>
+
+        <a href="https://apps.apple.com/ru/app/zebra-coffee-kz/id6474022904" target="_blank" class="store-btn">
+          <svg viewBox="0 0 24 24">
+            <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+          </svg>
+          <div class="store-btn-text">
+            <small>Загрузите в</small>
+            <span>App Store</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🪙</span>
+        <div class="feature-title">+10 БАЛЛОВ</div>
+        <div class="feature-desc">Начисляются за каждую покупку в кофейне при сканировании QR-кода.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📈</span>
+        <div class="feature-title">Растущая скидка</div>
+        <div class="feature-desc">Чем больше баллов накопите, тем выше уровень и процент персональной скидки.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⏱️</span>
+        <div class="feature-title">Интервал 15 минут</div>
+        <div class="feature-desc">Баллы начисляются не чаще одного раза в 15 минут (максимум 20 раз в день).</div>
+      </div>
+    </div>
+
+    <div class="faq-wrapper">
+      <div class="section-heading">Частые вопросы (FAQ)</div>
+      <input type="text" class="faq-search-box" id="faqSearch" placeholder="🔍 Найти вопрос..." oninput="filterFaq()">
+      <div class="faq-container" id="faqContainer">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Сколько баллов начисляется за покупку?</span>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            За каждую покупку начисляется по <strong>10 баллов</strong>.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Как повышается уровень?</span>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            Новый уровень присваивается автоматически, когда накоплено нужное количество баллов.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Может ли уровень понизиться?</span>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            Уровень может понизиться только после <strong>возврата покупки</strong>.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Как получить баллы рейтинга?</span>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            Баллы начисляются за покупки и отдельные награды в приложении.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Что такое рейтинг?</span>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            Это баллы, которые определяют ваш уровень в программе лояльности. Чем выше уровень, тем больше доступная скидка.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Что происходит при возврате заказа?</span>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            Баллы, начисленные за этот заказ, списываются. Уровень и скидка пересчитываются автоматически.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Где посмотреть начисления?</span>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            В разделе приложения <strong>«Мой рейтинг» → «История»</strong>. Здесь отображается вся история операций: покупки, возвраты и начисленные награды.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Есть ли лимит начислений?</span>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            Продажи не блокируются. Баллы и рейтинг начисляются не чаще <strong>1 раза в 15 минут</strong> и максимум <strong>20 раз в день</strong>. При покупке раньше 15 минут или после 20-го начисления покупка пройдет, но баллы и рейтинг не начислятcя.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Zebra Coffee — Павлодар. Создатель сайта: <strong>Ибрагимов Гурбан</strong></p>
+  </footer>
+
+  <script>
+    function toggleFaq(element) {
+      const item = element.parentElement;
+      const isActive = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(el => {
+        el.classList.remove('active');
+      });
+      if (!isActive) {
+        item.classList.add('active');
+      }
+    }
+
+    function filterFaq() {
+      const query = document.getElementById('faqSearch').value.toLowerCase();
+      const items = document.querySelectorAll('.faq-item');
+      items.forEach(item => {
+        const text = item.querySelector('.faq-question span').textContent.toLowerCase();
+        if (text.includes(query)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
