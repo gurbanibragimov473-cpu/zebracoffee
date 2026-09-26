@@ -2,10 +2,10 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Меню — Zebra Coffee</title>
   <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400&display=swap" rel="stylesheet">
@@ -227,70 +227,60 @@
       background: #ffffff; color: #007a7a; border-color: #ffffff;
     }
 
-    /* ФИКСАЦИЯ ЦЕНТРИРОВАНИЯ МОДАЛЬНОГО ОКНА ДЛЯ СМАРТФОНОВ И ПК */
     .modal-overlay {
-      position: fixed; 
-      top: 0; 
-      left: 0; 
-      width: 100vw; 
+      position: fixed;
+      inset: 0;
+      width: 100%;
       height: 100vh;
-      background: rgba(0, 25, 25, 0.85); 
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 20000; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center !important; /* Центрируем окно везде */
-      padding: 16px;
-      opacity: 0; 
-      pointer-events: none; 
-      transition: opacity 0.3s ease;
+      height: 100dvh;
+      padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+      background: rgba(0, 25, 25, 0.78);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      z-index: 20000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
     }
-    .modal-overlay.active { 
-      opacity: 1; 
-      pointer-events: all; 
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
     .modal-sheet {
       background: linear-gradient(160deg, #005959 0%, #003838 100%);
       border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 28px !important; 
-      width: 100%; 
-      max-width: 520px; 
-      max-height: 82vh;
-      display: flex; 
-      flex-direction: column; 
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-      transform: scale(0.92); 
-      transition: transform 0.3s ease;
+      border-radius: 28px;
+      width: min(100%, 650px);
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      transform: translateY(12px) scale(0.98);
+      opacity: 0;
+      transition: transform 0.28s cubic-bezier(0.2, 0.75, 0.3, 1), opacity 0.28s ease;
       overflow: hidden;
-      margin: auto;
     }
-    .modal-overlay.active .modal-sheet { 
-      transform: scale(1); 
+    .modal-overlay.active .modal-sheet {
+      transform: translateY(0) scale(1);
+      opacity: 1;
     }
     .modal-header {
-      padding: 20px 24px; 
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      background: rgba(0, 40, 40, 0.5);
-      flex-shrink: 0;
+      padding: 20px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex; justify-content: space-between; align-items: center; background: rgba(0, 40, 40, 0.5);
     }
     .modal-header h3 { font-size: 1.4rem; font-weight: 900; color: #ffffff; }
     .modal-close-icon {
       background: rgba(255, 255, 255, 0.15); border: none; color: #ffffff;
       width: 34px; height: 34px; border-radius: 50%; font-size: 1.2rem; cursor: pointer;
       display: flex; align-items: center; justify-content: center; font-weight: 800;
-      flex-shrink: 0;
     }
     .modal-body {
-      padding: 24px; 
-      overflow-y: auto; 
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 20px;
+      padding: 24px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 20px;
     }
     .mod-group-title {
       font-size: 0.95rem; font-weight: 800; color: #a3e4d7;
@@ -314,23 +304,22 @@
     .sugar-slider-wrapper input[type=range] { flex: 1; accent-color: #00c9c9; }
     .sugar-val-badge { font-weight: 900; font-size: 1.1rem; color: #ffffff; min-width: 35px; text-align: right; }
     .modal-footer {
-      padding: 18px 24px; 
-      background: rgba(0, 35, 35, 0.95);
-      border-top: 1px solid rgba(255, 255, 255, 0.15); 
-      display: flex; 
-      flex-direction: column; 
-      gap: 12px; 
-      align-items: center;
-      flex-shrink: 0;
+      padding: 18px 24px; background: rgba(0, 35, 35, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-direction: column; gap: 12px; align-items: center;
     }
     .price-summary-badge {
       font-size: 1.15rem; font-weight: 900; color: #ffffff;
       background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 12px 24px; border-radius: 20px; width: 100%; text-align: center; box-sizing: border-box;
+      padding: 12px 24px; border-radius: 20px; width: 100%; text-align: center;
     }
     .close-modal-btn {
       width: 100%; background: #ffffff; color: #007a7a; border: none;
       padding: 14px; border-radius: 30px; font-weight: 900; font-size: 1rem; cursor: pointer;
+    }
+
+    @media screen and (min-width: 651px) {
+      .modal-overlay { padding: 24px; }
+      .modal-sheet { max-height: 100%; }
     }
   </style>
 </head>
@@ -696,7 +685,14 @@
       return Math.round(price * (1 - currentDiscount / 100));
     }
 
+    let modalScrollY = 0;
+
     function openModal(product) {
+      const modal = document.getElementById("productModal");
+      if (modal.classList.contains("active")) return;
+      modalScrollY = window.scrollY;
+      document.documentElement.classList.add("modal-open");
+      document.body.classList.add("modal-open");
       selectedProduct = product;
       modalSelectedPrice = product.promoPrice || product.price;
       document.getElementById("modalProductTitle").innerText = product.name;
@@ -831,8 +827,7 @@
       }
 
       updateModalPrice();
-      document.getElementById("productModal").classList.add("active");
-      document.body.style.overflow = "hidden";
+      modal.classList.add("active");
     }
 
     function updateModalPrice() {
@@ -841,8 +836,12 @@
     }
 
     function closeModal() {
-      document.getElementById("productModal").classList.remove("active");
-      document.body.style.overflow = "";
+      const modal = document.getElementById("productModal");
+      if (!modal.classList.contains("active")) return;
+      modal.classList.remove("active");
+      document.documentElement.classList.remove("modal-open");
+      document.body.classList.remove("modal-open");
+      window.scrollTo(0, modalScrollY);
     }
 
     function closeModalOnOverlay(e) {
