@@ -291,6 +291,13 @@
       visibility: visible;
       pointer-events: auto;
     }
+    .modal-open header {
+      background: transparent !important;
+      border-bottom-color: transparent !important;
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+    }
     .modal-sheet {
       background: linear-gradient(160deg, #005959 0%, #003838 100%);
       border: 1px solid rgba(255, 255, 255, 0.35);
@@ -448,7 +455,48 @@
       color: #ffffff;
       font-size: 0.95rem;
       font-weight: 800;
-    }    .mod-group-title {
+    }    .mod-extra-note {
+      margin: -3px 0 10px;
+      color: rgba(235,255,252,0.62);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .mod-extra-list { display: grid; gap: 8px; }
+    .mod-extra-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 48px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.055);
+      cursor: pointer;
+      transition: background 0.18s ease, border-color 0.18s ease;
+    }
+    .mod-extra-option.selected {
+      border-color: rgba(73,209,220,0.62);
+      background: rgba(0,190,197,0.16);
+    }
+    .mod-extra-option input {
+      appearance: none;
+      flex: 0 0 20px;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      border: 2px solid rgba(255,255,255,0.48);
+      border-radius: 50%;
+      background: rgba(0,30,34,0.35);
+      cursor: pointer;
+    }
+    .mod-extra-option input:checked {
+      border: 6px solid #45d1dc;
+      background: #ffffff;
+    }
+    .mod-extra-name { flex: 1; color: #ffffff; font-size: 0.9rem; font-weight: 700; line-height: 1.3; }
+    .mod-extra-price { flex: 0 0 auto; color: rgba(235,255,252,0.72); font-size: 0.88rem; font-weight: 700; white-space: nowrap; }
+    .mod-extra-count { margin-top: 9px; color: rgba(235,255,252,0.62); font-size: 0.8rem; text-align: right; }
+    .mod-extra-option input:disabled { opacity: 0.35; cursor: not-allowed; }    .mod-group-title {
       font-size: 0.95rem; font-weight: 800; color: #a3e4d7;
       text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
     }
@@ -487,7 +535,7 @@
       .modal-overlay { padding: 24px; }
       .modal-sheet { max-height: 100%; }
     }
-  </style>
+</style>
 </head>
 <body>
 
@@ -496,10 +544,10 @@
   <header>
     <div class="nav-container">
       <a href="index.html" class="logo-container">
-        <img src="images/sdsa561da56d1a56DS.png" alt="Zebra Coffee" class="logo-img">
+        <img src="images/zebra-mark-white.png" alt="Zebra Coffee" class="logo-img">
         <div class="logo-brand-text">
           <span class="logo-brand-title">ZEBRA COFFEE</span>
-          <span class="logo-brand-subtitle">Павлодар</span>
+          <span class="logo-brand-subtitle">Кофе, который объединяет</span>
         </div>
       </a>
       <nav>
@@ -587,13 +635,13 @@
 
     const menuItems = [
       { id: 1, category: "popular", name: "Американо", price: 790, sizes: [{ name: "Маленький (250 мл)", price: 790 }, { name: "Средний (360 мл)", price: 890 }, { name: "Большой (480 мл)", price: 990 }], hasBeans: true, hasSugar: true },
-      { id: 2, category: "popular", name: "Капучино", price: 990, sizes: [{ name: "Маленький (250 мл)", price: 990 }, { name: "Средний (360 мл)", price: 1040 }, { name: "Большой (480 мл)", price: 1090 }], hasBeans: true },
-      { id: 3, category: "popular", name: "Флэт Уайт", price: 1090, hasBeans: true, hasSugar: true, hasOrderType: true, hasSyrups: true },
+      { id: 2, category: "popular", name: "Капучино", price: 990, sizes: [{ name: "Маленький (250 мл)", price: 990 }, { name: "Средний (360 мл)", price: 1040 }, { name: "Большой (480 мл)", price: 1090 }], hasBeans: true, hasPlantMilk: true },
+      { id: 3, category: "popular", name: "Флэт Уайт", price: 1090, hasBeans: true, hasSugar: true, hasOrderType: true, hasSyrups: true, hasPlantMilk: true },
       { id: 4, category: "popular", name: "Глинтвейн", price: 990, hasSugar: true, hasTemp: true },
       { id: 5, category: "popular", name: "Раф на сливках", price: 1190, sizes: [{ name: "Маленький (250 мл)", price: 1190 }, { name: "Средний (360 мл)", price: 1290 }, { name: "Большой (480 мл)", price: 1390 }], hasBeans: true },
-      { id: 6, category: "popular", name: "Латте", price: 990, sizes: [{ name: "Маленький (250 мл)", price: 990 }, { name: "Средний (360 мл)", price: 1040 }, { name: "Большой (480 мл)", price: 1090 }], hasBeans: true, hasSugar: true },
+      { id: 6, category: "popular", name: "Латте", price: 990, sizes: [{ name: "Маленький (250 мл)", price: 990 }, { name: "Средний (360 мл)", price: 1040 }, { name: "Большой (480 мл)", price: 1090 }], hasBeans: true, hasSugar: true, hasPlantMilk: true },
       { id: 7, category: "popular", name: "Чай клубника-малина-мята", price: 990, hasTemp: true },
-      { id: 8, category: "popular", name: "Ice latte", price: 1290, hasBeans: true, hasSyrups: true },
+      { id: 8, category: "popular", name: "Ice latte", price: 1290, hasBeans: true, hasSyrups: true, hasEssences: true },
       { id: 9, category: "popular", name: "Frappe Шоколад", price: 1590 },
       { id: 10, category: "popular", name: "Frappe Соленая карамель", price: 1590 },
       { id: 11, category: "popular", name: "Сэндвич с индейкой", price: 1490 },
@@ -604,10 +652,10 @@
       { id: 16, category: "popular", name: "Термокружка черная", price: 8900, promoPrice: 8010 },
       { id: 101, category: "coffee", name: "Эспрессо (250 мл)", price: 790, hasBeans: true },
       { id: 102, category: "coffee", name: "Американо", price: 790, sizes: [{ name: "Маленький (250 мл)", price: 790 }, { name: "Средний (360 мл)", price: 890 }, { name: "Большой (480 мл)", price: 990 }], hasBeans: true },
-      { id: 103, category: "coffee", name: "Моккачино", price: 1090, sizes: [{ name: "Маленький (250 мл)", price: 1090 }, { name: "Средний (360 мл)", price: 1190 }, { name: "Большой (480 мл)", price: 1290 }], hasBeans: true, hasSugar: true },
-      { id: 104, category: "coffee", name: "Капучино", price: 990, sizes: [{ name: "Маленький (250 мл)", price: 990 }, { name: "Средний (360 мл)", price: 1040 }, { name: "Большой (480 мл)", price: 1090 }], hasBeans: true },
+      { id: 103, category: "coffee", name: "Моккачино", price: 1090, sizes: [{ name: "Маленький (250 мл)", price: 1090 }, { name: "Средний (360 мл)", price: 1190 }, { name: "Большой (480 мл)", price: 1290 }], hasBeans: true, hasSugar: true, hasPlantMilk: true },
+      { id: 104, category: "coffee", name: "Капучино", price: 990, sizes: [{ name: "Маленький (250 мл)", price: 990 }, { name: "Средний (360 мл)", price: 1040 }, { name: "Большой (480 мл)", price: 1090 }], hasBeans: true, hasPlantMilk: true },
       { id: 105, category: "coffee", name: "Раф на сливках", price: 1190, sizes: [{ name: "Маленький (250 мл)", price: 1190 }, { name: "Средний (360 мл)", price: 1290 }, { name: "Большой (480 мл)", price: 1390 }], hasBeans: true },
-      { id: 106, category: "coffee", name: "Латте", price: 990, sizes: [{ name: "Маленький (250 мл)", price: 990 }, { name: "Средний (360 мл)", price: 1040 }, { name: "Большой (480 мл)", price: 1090 }], hasBeans: true },
+      { id: 106, category: "coffee", name: "Латте", price: 990, sizes: [{ name: "Маленький (250 мл)", price: 990 }, { name: "Средний (360 мл)", price: 1040 }, { name: "Большой (480 мл)", price: 1090 }], hasBeans: true, hasPlantMilk: true },
       { id: 107, category: "coffee", name: "Раф классический", price: 1190, sizes: [{ name: "Маленький (250 мл)", price: 1190 }, { name: "Средний (360 мл)", price: 1290 }, { name: "Большой (480 мл)", price: 1390 }], hasBeans: true, hasSugar: true },
       { id: 108, category: "coffee", name: "Frappe Классический", price: 1490 },
       { id: 109, category: "coffee", name: "Frappe Шоколадный / Карамельный", price: 1590 },
@@ -633,7 +681,7 @@
       { id: 402, category: "milkshakes", name: "Банановый молочный коктейль", price: 990, hasPlantMilk: true },
       { id: 403, category: "milkshakes", name: "Ванильный молочный коктейль", price: 990, hasPlantMilk: true },
       { id: 404, category: "milkshakes", name: "Молочный коктейль Радужный единорог", price: 990, hasPlantMilk: true },
-      { id: 501, category: "cold_coffee", name: "Ice latte", price: 1290, hasBeans: true, hasOrderType: true, hasSyrups: true },
+      { id: 501, category: "cold_coffee", name: "Ice latte", price: 1290, hasBeans: true, hasOrderType: true, hasSyrups: true, hasEssences: true },
       { id: 601, category: "seasonal", name: "Espresso Tonic", price: 1290, hasBeans: true, hasOrderType: true },
       { id: 602, category: "seasonal", name: "Ice Tea Peach", price: 1090 },
       { id: 603, category: "seasonal", name: "Ice Cherry", price: 1290, hasBeans: true },
@@ -647,7 +695,7 @@
       { id: 704, category: "lemonades", name: "Лимонад 5 таежных ягод", price: 1090 },
       { id: 705, category: "lemonades", name: "Гранат и роза лимонад", price: 990 },
       { id: 801, category: "matcha", name: "Латте голубая матча", price: 1090, hasSugar: true, hasOrderType: true, hasSyrups: true },
-      { id: 802, category: "matcha", name: "Ice tea Blue Matcha", price: 1290, hasOrderType: true, hasSyrups: true },
+      { id: 802, category: "matcha", name: "Ice tea Blue Matcha", price: 1290, hasOrderType: true, hasSyrups: true, hasEssences: true },
       { id: 803, category: "matcha", name: "Ice tea Matcha Сакура", price: 1290, hasSyrups: true, hasSugar: true, hasPlantMilk: true },
       { id: 804, category: "matcha", name: "Латте розовая матча", price: 1090 },
       { id: 901, category: "bottled", name: "Шымбулак", price: 550 },
@@ -740,6 +788,7 @@
     let currentDiscount = 0;
     let selectedProduct = null;
     let modalSelectedPrice = 0;
+    let modalExtraPrices = {};
     let toastTimeout = null;
     let isCalculating = false;
     let currentPage = 1;
@@ -762,12 +811,55 @@
       dropdown.value = currentCategory;
     }
 
-    function onCategorySelectChange(catId) {
-      currentCategory = catId;
-      currentPage = 1;
-      renderContent();
+    let pendingMenuRender = null;
+    let menuScrollMonitorActive = false;
+
+    function scrollMenuToTopThen(callback) {
+      pendingMenuRender = callback;
+      if (menuScrollMonitorActive) return;
+
+      const target = document.querySelector(".category-select-wrapper");
+      const header = document.querySelector("header");
+      const headerHeight = header ? header.getBoundingClientRect().height : 0;
+      const targetY = target ? Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerHeight - 14) : 0;
+
+      if (Math.abs(window.scrollY - targetY) < 2) {
+        const render = pendingMenuRender;
+        pendingMenuRender = null;
+        render();
+        return;
+      }
+
+      menuScrollMonitorActive = true;
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+      let previousY = window.scrollY;
+      let stillFrames = 0;
+
+      const waitForScroll = () => {
+        const currentY = window.scrollY;
+        stillFrames = Math.abs(currentY - previousY) < 0.5 ? stillFrames + 1 : 0;
+        previousY = currentY;
+
+        if (Math.abs(currentY - targetY) < 2 || stillFrames >= 12) {
+          menuScrollMonitorActive = false;
+          const render = pendingMenuRender;
+          pendingMenuRender = null;
+          if (render) render();
+          return;
+        }
+        requestAnimationFrame(waitForScroll);
+      };
+
+      requestAnimationFrame(waitForScroll);
     }
 
+    function onCategorySelectChange(catId) {
+      scrollMenuToTopThen(() => {
+        currentCategory = catId;
+        currentPage = 1;
+        renderContent();
+      });
+    }
     function setDiscount(percent, event) {
       if (isCalculating) return;
       if (currentDiscount === percent) {
@@ -838,9 +930,10 @@
           btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
           btn.innerText = i;
           btn.onclick = () => {
-            currentPage = i;
-            renderContent();
-            window.scrollTo({ top: 300, behavior: 'smooth' });
+            scrollMenuToTopThen(() => {
+              currentPage = i;
+              renderContent();
+            });
           };
           pageBox.appendChild(btn);
         }
@@ -855,6 +948,97 @@
       const match = String(optionLabel).match(/(\d[\d\s,]*)\s*₸/);
       return match ? Number(match[1].replace(/\D/g, "")) : null;
     }
+    function setModalExtraPrice(key, amount) {
+      modalExtraPrices[key] = amount;
+      updateModalPrice();
+    }
+
+    function addMultiSelectGroup(body, title, choices, maxSelections, priceKey) {
+      const group = document.createElement("div");
+      const titleElement = document.createElement("div");
+      titleElement.className = "mod-group-title";
+      titleElement.textContent = title;
+      group.appendChild(titleElement);
+
+      const note = document.createElement("div");
+      note.className = "mod-extra-note";
+      note.textContent = "Выберите до " + maxSelections + " дополнительных товаров";
+      group.appendChild(note);
+
+      const list = document.createElement("div");
+      list.className = "mod-extra-list";
+      const selected = new Set();
+      let noneInput = null;
+      const count = document.createElement("div");
+      count.className = "mod-extra-count";
+
+      const refresh = () => {
+        count.textContent = "Выбрано: " + selected.size + " из " + maxSelections;
+        list.querySelectorAll("input:not(:checked)").forEach(input => {
+          input.disabled = selected.size >= maxSelections && !input.dataset.none;
+        });
+        const total = Array.from(selected).reduce((sum, choice) => sum + choice.price, 0);
+        setModalExtraPrice(priceKey, total);
+      };
+
+      choices.forEach(choice => {
+        const row = document.createElement("label");
+        row.className = "mod-extra-option";
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.dataset.none = choice.none ? "true" : "";
+        input.checked = Boolean(choice.none);
+        if (choice.none) {
+          noneInput = input;
+          row.classList.add("selected");
+        }
+
+        const name = document.createElement("span");
+        name.className = "mod-extra-name";
+        name.textContent = choice.name;
+
+        const price = document.createElement("span");
+        price.className = "mod-extra-price";
+        price.textContent = "+" + choice.price + " ₸";
+
+        input.addEventListener("change", () => {
+          if (choice.none) {
+            if (!input.checked) input.checked = true;
+            selected.clear();
+            list.querySelectorAll("input:not([data-none='true'])").forEach(option => {
+              option.checked = false;
+              option.closest(".mod-extra-option").classList.remove("selected");
+            });
+          } else if (input.checked) {
+            if (selected.size >= maxSelections) {
+              input.checked = false;
+              showToast("Можно выбрать не более " + maxSelections + " вариантов");
+              return;
+            }
+            selected.add(choice);
+            if (noneInput) {
+              noneInput.checked = false;
+              noneInput.closest(".mod-extra-option").classList.remove("selected");
+            }
+          } else {
+            selected.delete(choice);
+            if (selected.size === 0 && noneInput) {
+              noneInput.checked = true;
+              noneInput.closest(".mod-extra-option").classList.add("selected");
+            }
+          }
+          row.classList.toggle("selected", input.checked);
+          refresh();
+        });
+
+        row.append(input, name, price);
+        list.appendChild(row);
+      });
+
+      group.append(list, count);
+      body.appendChild(group);
+      refresh();
+    }
 
     let modalScrollY = 0;
 
@@ -865,6 +1049,7 @@
       document.documentElement.classList.add("modal-open");
       document.body.classList.add("modal-open");
       selectedProduct = product;
+      modalExtraPrices = {};
       modalSelectedPrice = product.promoPrice || product.price;
       document.getElementById("modalProductTitle").innerText = product.name;
       const body = document.getElementById("modalBody");
@@ -1012,18 +1197,69 @@
         body.appendChild(group);
       }
 
+      if (product.hasSyrups) {
+        addMultiSelectGroup(body, "Сиропы", [
+          { name: "Без сиропа", price: 0, none: true },
+          { name: "Попкорн", price: 0 },
+          { name: "Яблочный пирог", price: 0 },
+          { name: "Имбирный пряник", price: 0 },
+          { name: "Солёная карамель", price: 0 },
+          { name: "Ваниль", price: 0 },
+          { name: "Карамель", price: 0 },
+          { name: "Айриш", price: 0 },
+          { name: "Тоффи", price: 0 },
+          { name: "Шоколад", price: 0 },
+          { name: "Кукис шоколадный", price: 0 }
+        ], 10, "syrups");
+      }
+
+      if (product.hasEssences) {
+        addMultiSelectGroup(body, "Эссенции без сахара", [
+          { name: "Без эссенции", price: 0, none: true },
+          { name: "Амаретто", price: 70 },
+          { name: "Вишня", price: 70 },
+          { name: "Груша", price: 70 },
+          { name: "Мята", price: 70 },
+          { name: "Дыня", price: 70 },
+          { name: "Кокос", price: 70 },
+          { name: "Лесной орех (грецкий орех)", price: 70 },
+          { name: "Малина", price: 70 },
+          { name: "Смородина", price: 70 },
+          { name: "Фисташка", price: 70 },
+          { name: "Манго", price: 70 },
+          { name: "Персик", price: 70 }
+        ], 10, "essences");
+      }
+
       if (product.hasPlantMilk) {
         const group = document.createElement("div");
-        group.innerHTML = `<div class="mod-group-title">Альтернативное молоко:</div>`;
+        group.innerHTML = '<div class="mod-group-title">Растительное молоко</div>';
         const flex = document.createElement("div");
         flex.className = "mod-options-flex";
-        ["Классическое", "Овсяное", "Миндальное", "Банановое", "Безлактозное"].forEach((m, idx) => {
+        const milkChoices = [
+          { name: "Стандартное молоко", price: 0 },
+          { name: "Безлактозное молоко", price: 390 },
+          { name: "Кокосовое молоко", price: 390 },
+          { name: "Миндальное молоко", price: 390 },
+          { name: "Овсяное молоко", price: 390 },
+          { name: "Соевое молоко", price: 390 },
+          { name: "Фундучное молоко", price: 390 },
+          { name: "Банановое молоко", price: 390 }
+        ];
+        milkChoices.forEach((milk, idx) => {
           const btn = document.createElement("button");
-          btn.className = `mod-opt-btn ${idx === 0 ? 'active' : ''}`;
-          btn.innerText = m;
+          btn.type = "button";
+          btn.className = "mod-opt-btn" + (idx === 0 ? " active" : "");
+          btn.setAttribute("aria-pressed", idx === 0 ? "true" : "false");
+          btn.textContent = milk.name + (milk.price ? " (+" + milk.price + " ₸)" : "");
           btn.onclick = () => {
-            flex.querySelectorAll('.mod-opt-btn').forEach(el => el.classList.remove('active'));
-            btn.classList.add('active');
+            flex.querySelectorAll(".mod-opt-btn").forEach(option => {
+              option.classList.remove("active");
+              option.setAttribute("aria-pressed", "false");
+            });
+            btn.classList.add("active");
+            btn.setAttribute("aria-pressed", "true");
+            setModalExtraPrice("plantMilk", milk.price);
           };
           flex.appendChild(btn);
         });
@@ -1061,7 +1297,8 @@
     }
 
     function updateModalPrice() {
-      const finalP = calculateDiscountedPrice(modalSelectedPrice);
+      const extrasTotal = Object.values(modalExtraPrices).reduce((sum, amount) => sum + amount, 0);
+      const finalP = calculateDiscountedPrice(modalSelectedPrice) + extrasTotal;
       document.getElementById("modalFinalPrice").innerText = finalP.toLocaleString();
     }
 
