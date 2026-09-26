@@ -10,6 +10,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400&display=swap" rel="stylesheet">
   <style>
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit !important;
+    }
+
     .toast-notification {
       position: fixed;
       top: 85px;
@@ -227,58 +240,49 @@
       background: #ffffff; color: #007a7a; border-color: #ffffff;
     }
 
-    /* ===== МОДАЛЬНОЕ ОКНО: центрирование + плавное появление ===== */
-    body.modal-open {
-      overflow: hidden;
-    }
     .modal-overlay {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      height: 100dvh; /* корректная высота на мобильных с адресной строкой */
-      background: rgba(0, 20, 20, 0.65);
-      backdrop-filter: blur(0px);
-      -webkit-backdrop-filter: blur(0px);
-      z-index: 20000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      box-sizing: border-box;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      background: rgba(0, 20, 20, 0.75) !important;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 999999 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 16px !important;
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.35s ease, backdrop-filter 0.35s ease, visibility 0s linear 0.35s;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
     }
     .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: opacity 0.35s ease, backdrop-filter 0.35s ease, visibility 0s linear 0s;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
     }
     .modal-sheet {
-      background: linear-gradient(160deg, #005959 0%, #003838 100%);
+      background: linear-gradient(160deg, #005959 0%, #003838 100%) !important;
       border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 24px;
-      width: 100%;
-      max-width: 500px;
-      max-height: 85vh;
-      max-height: 85dvh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-      transform: translateY(24px) scale(0.94);
-      opacity: 0;
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-      overflow: hidden;
-      margin: auto;
+      border-radius: 24px !important;
+      width: 100% !important;
+      max-width: 500px !important;
+      max-height: 80vh !important;
+      max-height: 80dvh !important;
+      display: flex !important;
+      flex-direction: column !important;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important;
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+      overflow: hidden !important;
+      margin: auto !important;
     }
     .modal-overlay.active .modal-sheet {
-      transform: translateY(0) scale(1);
-      opacity: 1;
+      transform: scale(1) !important;
     }
     .modal-header {
       padding: 18px 20px;
@@ -696,7 +700,10 @@
           btn.onclick = () => {
             currentPage = i;
             renderContent();
-            window.scrollTo({ top: 300, behavior: 'smooth' });
+            const targetElement = document.querySelector('.category-select-wrapper') || document.getElementById('menuGrid');
+            if (targetElement) {
+              targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
           };
           pageBox.appendChild(btn);
         }
@@ -843,18 +850,7 @@
       }
 
       updateModalPrice();
-
-      // Открываем модалку плавно: сначала DOM обновлён без класса active,
-      // затем через двойной requestAnimationFrame добавляем active —
-      // это гарантирует, что браузер применит transition, а не покажет окно скачком.
-      const overlay = document.getElementById("productModal");
-      overlay.classList.remove("active");
-      document.body.classList.add("modal-open");
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          overlay.classList.add("active");
-        });
-      });
+      document.getElementById("productModal").classList.add("active");
     }
 
     function updateModalPrice() {
@@ -864,7 +860,6 @@
 
     function closeModal() {
       document.getElementById("productModal").classList.remove("active");
-      document.body.classList.remove("modal-open");
     }
 
     function closeModalOnOverlay(e) {
