@@ -322,6 +322,81 @@
     .modal-body {
       padding: 24px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 20px;
     }
+    .modal-size-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .modal-size-option {
+      min-width: 0;
+      min-height: 184px;
+      padding: 14px 8px 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.11), rgba(255,255,255,0.035));
+      color: #ffffff;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .modal-size-option:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.48);
+    }
+    .modal-size-option.active {
+      border-color: rgba(76,218,224,0.82);
+      background: linear-gradient(155deg, rgba(0,190,197,0.32), rgba(255,255,255,0.08));
+      box-shadow: 0 0 0 2px rgba(0,201,201,0.12), inset 0 1px 0 rgba(255,255,255,0.16);
+    }
+    .modal-size-cup {
+      display: block;
+      flex: 0 0 auto;
+      color: rgba(235,255,255,0.9);
+      transition: color 0.2s ease, filter 0.2s ease;
+    }
+    .modal-size-option.active .modal-size-cup {
+      color: #49d1dc;
+      filter: drop-shadow(0 4px 10px rgba(35,205,220,0.24));
+    }
+    .modal-size-cup--small { width: 40px; height: 48px; }
+    .modal-size-cup--medium { width: 49px; height: 59px; }
+    .modal-size-cup--large { width: 58px; height: 70px; }
+    .modal-size-name {
+      color: rgba(255,255,255,0.94);
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .modal-size-price {
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .modal-size-volume {
+      color: rgba(225,255,252,0.62);
+      font-size: 0.82rem;
+      line-height: 1.1;
+    }
+    .modal-size-option.active .modal-size-volume {
+      color: rgba(225,255,252,0.88);
+    }
+    @media screen and (max-width: 420px) {
+      .modal-body { padding: 18px 14px; }
+      .modal-size-options { gap: 7px; }
+      .modal-size-option { min-height: 168px; padding: 12px 4px; border-radius: 16px; gap: 7px; }
+      .modal-size-cup--small { width: 34px; height: 42px; }
+      .modal-size-cup--medium { width: 42px; height: 51px; }
+      .modal-size-cup--large { width: 49px; height: 60px; }
+      .modal-size-name { font-size: 0.78rem; }
+      .modal-size-price { font-size: 0.9rem; }
+      .modal-size-volume { font-size: 0.76rem; }
+    }
     .modal-selected-product {
       position: relative;
       isolation: isolate;
@@ -776,6 +851,10 @@
       if (currentDiscount <= 0) return price;
       return Math.round(price * (1 - currentDiscount / 100));
     }
+    function getOptionPrice(optionLabel) {
+      const match = String(optionLabel).match(/(\d[\d\s,]*)\s*₸/);
+      return match ? Number(match[1].replace(/\D/g, "")) : null;
+    }
 
     let modalScrollY = 0;
 
@@ -793,16 +872,43 @@
 
       if (product.sizes) {
         const group = document.createElement("div");
-        group.innerHTML = `<div class="mod-group-title">Выберите размер / объем:</div>`;
+        group.innerHTML = '<div class="mod-group-title">Выберите размер / объем:</div>';
         const flex = document.createElement("div");
-        flex.className = "mod-options-flex";
+        flex.className = "modal-size-options";
         product.sizes.forEach((s, idx) => {
           const btn = document.createElement("button");
-          btn.className = `mod-opt-btn ${idx === 0 ? 'active' : ''}`;
-          btn.innerText = `${s.name} — ${s.price} ₸`;
+          const normalizedSize = s.name.toLowerCase();
+          const cupSize = normalizedSize.includes("маленький") ? "small" : normalizedSize.includes("средний") ? "medium" : normalizedSize.includes("большой") ? "large" : ["small", "medium", "large"][Math.min(idx, 2)];
+          btn.type = "button";
+          btn.className = "modal-size-option" + (idx === 0 ? " active" : "");
+          btn.setAttribute("aria-pressed", idx === 0 ? "true" : "false");
+
+          const cup = document.createElement("span");
+          cup.className = "modal-size-cup modal-size-cup--" + cupSize;
+          cup.setAttribute("aria-hidden", "true");
+          cup.innerHTML = '<svg viewBox="0 0 100 110" width="100%" height="100%" focusable="false"><path fill="currentColor" d="M21 28h58l-5 62c-.5 6-5 10-11 10H37c-6 0-10.5-4-11-10l-5-62Z"/><path fill="currentColor" d="M16 20h68l-4 9H20z"/><circle cx="50" cy="57" r="8" fill="rgba(0,55,58,.9)"/></svg>';
+
+          const name = document.createElement("span");
+          name.className = "modal-size-name";
+          name.textContent = s.name.replace(/\s*\([^)]*\)\s*/g, "").trim();
+
+          const price = document.createElement("strong");
+          price.className = "modal-size-price";
+          price.textContent = s.price.toLocaleString() + " ₸";
+
+          const volumeMatch = s.name.match(/(\d+)\s*мл/i);
+          const volume = document.createElement("span");
+          volume.className = "modal-size-volume";
+          volume.textContent = volumeMatch ? volumeMatch[1] + " мл" : "";
+
+          btn.append(cup, name, price, volume);
           btn.onclick = () => {
-            flex.querySelectorAll('.mod-opt-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            flex.querySelectorAll(".modal-size-option").forEach(option => {
+              option.classList.remove("active");
+              option.setAttribute("aria-pressed", "false");
+            });
+            btn.classList.add("active");
+            btn.setAttribute("aria-pressed", "true");
             modalSelectedPrice = s.price;
             updateModalPrice();
           };
@@ -818,6 +924,8 @@
         group.innerHTML = `<div class="mod-group-title">Выберите исполнение:</div>`;
         const flex = document.createElement("div");
         flex.className = "mod-options-flex";
+        const firstColorPrice = product.colors.length ? getOptionPrice(product.colors[0]) : null;
+        if (firstColorPrice !== null) modalSelectedPrice = firstColorPrice;
         product.colors.forEach((c, idx) => {
           const btn = document.createElement("button");
           btn.className = `mod-opt-btn ${idx === 0 ? 'active' : ''}`;
@@ -825,6 +933,11 @@
           btn.onclick = () => {
             flex.querySelectorAll('.mod-opt-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            const optionPrice = getOptionPrice(c);
+            if (optionPrice !== null) {
+              modalSelectedPrice = optionPrice;
+              updateModalPrice();
+            }
           };
           flex.appendChild(btn);
         });
