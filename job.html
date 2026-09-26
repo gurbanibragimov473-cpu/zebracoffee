@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Работа у нас — Zebra Coffee</title>
   <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
   <link rel="stylesheet" href="styles.css">
@@ -108,30 +108,28 @@
       position: fixed;
       inset: 0;
       width: 100%;
-      height: 100%;
+      height: 100vh;
       height: 100dvh;
+      padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
       background: rgba(0, 20, 20, 0.88);
-      backdrop-filter: blur(0px);
-      -webkit-backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow-y: auto;
       z-index: 20000;
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.35s ease, backdrop-filter 0.35s ease, visibility 0s linear 0.35s;
-      padding: 20px;
-      box-sizing: border-box;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
     .modal-overlay.active {
       opacity: 1;
       visibility: visible;
-      pointer-events: all;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      transition: opacity 0.35s ease, backdrop-filter 0.35s ease, visibility 0s linear 0s;
+      pointer-events: auto;
     }
+    html.modal-locked, body.modal-locked { overflow: hidden; }
     .modal-card {
       background: linear-gradient(145deg, rgba(0, 60, 60, 0.98), rgba(0, 40, 40, 0.98));
       border: 2px solid rgba(255, 255, 255, 0.5);
@@ -139,19 +137,15 @@
       padding: 42px 32px;
       max-width: 580px;
       width: 100%;
-      max-height: 85vh;
-      max-height: 85dvh;
+      max-height: 100%;
       overflow-y: auto;
       text-align: center;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 201, 201, 0.2);
-      transform: translateY(24px) scale(0.92);
-      opacity: 0;
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-      margin: auto;
+      transform: scale(0.88);
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .modal-overlay.active .modal-card {
-      transform: translateY(0) scale(1);
-      opacity: 1;
+      transform: scale(1);
     }
     .modal-badge {
       display: inline-block;
@@ -175,13 +169,16 @@
       letter-spacing: 0.5px;
     }
     .modal-text {
-      color: #ffffff;
-      font-size: 1.12rem;
-      font-weight: 700;
-      line-height: 1.7;
+      color: #e0f7f7;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.65;
       margin-bottom: 28px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      text-align: left;
     }
+    .modal-text p { margin: 0 0 14px; }
+    .modal-text p:last-child { margin-bottom: 0; }
+    .modal-text strong { color: #ffffff; font-weight: 800; }
     .progress-bar-container {
       width: 100%;
       height: 10px;
@@ -213,7 +210,7 @@
       font-weight: 900;
       cursor: pointer;
       transition: all 0.3s ease;
-      display: none;
+      display: inline-block;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
     .modal-close-btn:hover {
@@ -226,7 +223,7 @@
       .job-hero h1 { font-size: 2.2rem; }
       .modal-card { padding: 30px 20px; }
       .modal-title { font-size: 1.6rem; }
-      .modal-text { font-size: 1rem; }
+      .modal-text { font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -326,17 +323,20 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="demoModal">
+  <div class="modal-overlay active" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-card">
-      <div class="modal-badge" id="modalBadge">Демо-режим</div>
-      <div class="modal-title" id="modalTitle">Отправка заявки...</div>
+      <div class="modal-badge" id="modalBadge">Демо-версия</div>
+      <h2 class="modal-title" id="modalTitle">Привет! Небольшое пояснение</h2>
       <div class="modal-text" id="modalText">
-        Идёт подключение к серверу Zebra Coffee для передачи вашей анкеты...
+        <p>Это демо-версия страницы Zebra Coffee Work, которую я разработал для показа интерфейса.</p>
+        <p><strong>Города и адреса.</strong> В списке пока указаны только кофейни по Павлодарской области, так как я сам отсюда и хорошо знаю местную географию. Адреса других городов пока не добавлял.</p>
+        <p><strong>Куда уйдёт анкета?</strong> Никуда! Это тестовая страница. Вы можете смело заполнять любые поля и нажимать кнопки — ваши данные нигде не сохраняются и никуда не отправляются.</p>
+        <p>Нажмите кнопку ниже, чтобы посмотреть, как всё устроено и работает!</p>
       </div>
-      <div class="progress-bar-container">
+      <div class="progress-bar-container" id="progressContainer" hidden>
         <div class="progress-bar-fill" id="progressFill"></div>
       </div>
-      <button class="modal-close-btn" id="modalCloseBtn" onclick="closeModal()">Понятно</button>
+      <button type="button" class="modal-close-btn" id="modalCloseBtn" onclick="closeModal()">Я всё понял(а), продолжить</button>
     </div>
   </div>
 
@@ -345,47 +345,23 @@
   </footer>
 
   <script>
+    document.documentElement.classList.add("modal-locked");
+    document.body.classList.add("modal-locked");
     function handleFormSubmit(event) {
       event.preventDefault();
-      const modal = document.getElementById('demoModal');
-      const progressFill = document.getElementById('progressFill');
-      const modalBadge = document.getElementById('modalBadge');
-      const modalTitle = document.getElementById('modalTitle');
-      const modalText = document.getElementById('modalText');
-      const closeBtn = document.getElementById('modalCloseBtn');
-
-      modalBadge.innerText = "Подключение";
-      modalTitle.innerText = "Отправка заявки...";
-      modalText.innerText = "Идёт подключение к серверу Zebra Coffee для передачи вашей анкеты...";
-      progressFill.style.width = '0%';
-      progressFill.classList.remove('failed');
-      closeBtn.style.display = 'none';
-
-      modal.classList.remove('active');
-      document.body.classList.add('modal-open');
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          modal.classList.add('active');
-        });
-      });
-
-      setTimeout(() => {
-        progressFill.style.width = '100%';
-      }, 50);
-
-      setTimeout(() => {
-        progressFill.classList.add('failed');
-        modalBadge.innerText = "Информация о портфолио";
-        modalTitle.innerText = "Демонстрация работы формы";
-        modalText.innerHTML = "Обратите внимание: анкета не отправляется, так как это демоверсия сайта-портфолио.<br><br>В ваших проектах вся информация с формы будет мгновенно и надежно поступать напрямую на вашу рабочую почту или в Telegram-бот компании.";
-        closeBtn.style.display = 'inline-block';
-      }, 3050);
+      document.getElementById('modalBadge').innerText = 'Демо-режим';
+      document.getElementById('modalTitle').innerText = 'Анкета не отправлена';
+      document.getElementById('modalText').innerHTML = '<p>Это демонстрационная страница. Данные формы никуда не передаются и нигде не сохраняются.</p>';
+      document.getElementById('progressContainer').hidden = true;
+      document.getElementById('modalCloseBtn').innerText = 'Закрыть';
+      document.getElementById('demoModal').classList.add('active');
+      document.documentElement.classList.add('modal-locked');
+      document.body.classList.add('modal-locked');
     }
-
     function closeModal() {
       document.getElementById('demoModal').classList.remove('active');
-      document.body.classList.remove('modal-open');
-      document.getElementById('jobForm').reset();
+      document.documentElement.classList.remove('modal-locked');
+      document.body.classList.remove('modal-locked');
     }
   </script>
 </body>
