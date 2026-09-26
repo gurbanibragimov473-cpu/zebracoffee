@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Меню — Zebra Coffee</title>
   <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
   <link rel="stylesheet" href="styles.css">
@@ -10,6 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400&display=swap" rel="stylesheet">
   <style>
+    html, body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
     .toast-notification {
       position: fixed;
       top: 85px;
@@ -186,6 +192,7 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
       transition: all 0.3s ease;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
     .menu-card:hover {
       transform: translateY(-5px);
@@ -228,45 +235,82 @@
     }
 
     .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh;
-      background: rgba(0, 25, 25, 0.85); backdrop-filter: blur(12px);
-      z-index: 20000; display: flex; justify-content: center; align-items: center;
-      padding: 16px; box-sizing: border-box;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 25, 25, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 20000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      box-sizing: border-box;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
     }
-    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
     .modal-sheet {
       background: linear-gradient(160deg, #005959 0%, #003838 100%);
       border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 24px; width: 100%; max-width: 550px; max-height: 85dvh;
-      display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      transform: scale(0.9) translateY(20px); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 80vh;
+      max-height: 80dvh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      transform: scale(0.92);
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       overflow: hidden;
+      margin: auto;
     }
-    .modal-overlay.active .modal-sheet { transform: scale(1) translateY(0); }
+    .modal-overlay.active .modal-sheet {
+      transform: scale(1);
+    }
     .modal-header {
-      padding: 20px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      display: flex; justify-content: space-between; align-items: center; background: rgba(0, 40, 40, 0.5);
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 40, 40, 0.5);
+      flex-shrink: 0;
     }
-    .modal-header h3 { font-size: 1.4rem; font-weight: 900; color: #ffffff; }
+    .modal-header h3 { font-size: 1.3rem; font-weight: 900; color: #ffffff; margin: 0; }
     .modal-close-icon {
       background: rgba(255, 255, 255, 0.15); border: none; color: #ffffff;
       width: 34px; height: 34px; border-radius: 50%; font-size: 1.2rem; cursor: pointer;
       display: flex; align-items: center; justify-content: center; font-weight: 800;
+      flex-shrink: 0;
     }
     .modal-body {
-      padding: 24px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 20px;
+      padding: 20px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
     .mod-group-title {
-      font-size: 0.95rem; font-weight: 800; color: #a3e4d7;
-      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+      font-size: 0.9rem; font-weight: 800; color: #a3e4d7;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
     }
-    .mod-options-flex { display: flex; gap: 10px; flex-wrap: wrap; }
+    .mod-options-flex { display: flex; gap: 8px; flex-wrap: wrap; }
     .mod-opt-btn {
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #ffffff; padding: 10px 18px; border-radius: 14px;
-      font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;
+      color: #ffffff; padding: 8px 14px; border-radius: 12px;
+      font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;
     }
     .mod-opt-btn.active {
       background: #ffffff; color: #007a7a; border-color: #ffffff; font-weight: 800;
@@ -279,17 +323,23 @@
     .sugar-slider-wrapper input[type=range] { flex: 1; accent-color: #00c9c9; }
     .sugar-val-badge { font-weight: 900; font-size: 1.1rem; color: #ffffff; min-width: 35px; text-align: right; }
     .modal-footer {
-      padding: 18px 24px; background: rgba(0, 35, 35, 0.95);
-      border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-direction: column; gap: 12px; align-items: center;
+      padding: 16px 20px;
+      background: rgba(0, 35, 35, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      flex-shrink: 0;
     }
     .price-summary-badge {
-      font-size: 1.15rem; font-weight: 900; color: #ffffff;
+      font-size: 1.1rem; font-weight: 900; color: #ffffff;
       background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 12px 24px; border-radius: 20px; width: 100%; text-align: center;
+      padding: 10px 20px; border-radius: 16px; width: 100%; text-align: center; box-sizing: border-box;
     }
     .close-modal-btn {
       width: 100%; background: #ffffff; color: #007a7a; border: none;
-      padding: 14px; border-radius: 30px; font-weight: 900; font-size: 1rem; cursor: pointer;
+      padding: 12px; border-radius: 25px; font-weight: 900; font-size: 0.95rem; cursor: pointer;
     }
   </style>
 </head>
@@ -549,6 +599,10 @@
     let currentPage = 1;
     const itemsPerPage = 12;
 
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let scrollPosition = 0;
+
     window.addEventListener("DOMContentLoaded", () => {
       renderDropdownOptions();
       renderContent();
@@ -620,7 +674,23 @@
       paginatedItems.forEach(item => {
         const card = document.createElement("div");
         card.className = "menu-card";
-        card.onclick = () => openModal(item);
+        
+        card.addEventListener('touchstart', (e) => {
+          touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        card.addEventListener('touchend', (e) => {
+          touchEndY = e.changedTouches[0].clientY;
+          if (Math.abs(touchStartY - touchEndY) < 10) {
+            openModal(item);
+          }
+        });
+
+        card.onclick = (e) => {
+          if (e.pointerType === 'mouse') {
+            openModal(item);
+          }
+        };
 
         const basePrice = item.promoPrice || item.price;
         const finalPrice = calculateDiscountedPrice(basePrice);
@@ -790,8 +860,13 @@
       }
 
       updateModalPrice();
+      
+      scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPosition}px`;
+      document.body.style.width = '100%';
+
       document.getElementById("productModal").classList.add("active");
-      document.body.style.overflow = "hidden";
     }
 
     function updateModalPrice() {
@@ -801,7 +876,11 @@
 
     function closeModal() {
       document.getElementById("productModal").classList.remove("active");
-      document.body.style.overflow = "";
+      
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollPosition);
     }
 
     function closeModalOnOverlay(e) {
