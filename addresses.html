@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Адреса — Zebra Coffee</title>
   <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
   <link rel="stylesheet" href="styles.css">
@@ -120,7 +120,7 @@
       margin: 20px auto 60px auto;
       padding: 0 15px;
       box-sizing: border-box;
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transition: opacity 0.3s ease;
     }
     .address-card {
       background: rgba(0, 90, 90, 0.65);
@@ -359,7 +359,6 @@
       const grid = document.getElementById('addressGrid');
 
       grid.style.opacity = '0';
-      grid.style.transform = 'translateY(10px)';
 
       setTimeout(() => {
         btnPavlodar.classList.remove('active');
@@ -383,7 +382,6 @@
           renderCards(aksuData);
         }
         grid.style.opacity = '1';
-        grid.style.transform = 'translateY(0)';
       }, 200);
     }
 

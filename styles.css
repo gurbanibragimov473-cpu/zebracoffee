@@ -4,15 +4,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
-  overflow-x: hidden;
   background: radial-gradient(circle at 50% 30%, #00c9c9 0%, #00a3a3 50%, #007a7a 100%) !important;
   color: #ffffff !important;
   font-family: 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif !important;
@@ -49,7 +43,7 @@ header {
   position: sticky !important;
   top: 0 !important;
   z-index: 10000 !important;
-  padding: calc(12px + env(safe-area-inset-top, 0px)) 0 12px 0 !important;
+  padding: 12px 0 !important;
   box-shadow: 0 8px 32px rgba(0, 40, 40, 0.25) !important;
 }
 
@@ -138,10 +132,6 @@ nav ul li a.active {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-}
-
-body.modal-open {
-  overflow: hidden;
 }
 
 footer {
