@@ -23,7 +23,7 @@
     }
 
     body {
-      background-color: var(--bg-teal);
+      background: radial-gradient(ellipse at 18% 10%, rgba(83, 217, 207, .18), transparent 36%), radial-gradient(ellipse at 86% 44%, rgba(229, 193, 88, .08), transparent 30%), linear-gradient(145deg, #006565, #004345 58%, #002d31);
       color: var(--text-white);
       font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
       margin: 0;
@@ -31,10 +31,19 @@
     }
 
     .about-hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
       text-align: center;
-      padding: 65px 20px 35px 20px;
+      padding: clamp(42px, 6vw, 72px) clamp(22px, 5vw, 64px);
       max-width: 1150px;
-      margin: 0 auto;
+      margin: 34px auto 0;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .12), rgba(0, 43, 43, .48));
+      box-shadow: 0 28px 70px rgba(0, 24, 26, .28), inset 0 1px 0 rgba(255,255,255,.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
     .about-hero-badge {
@@ -128,25 +137,28 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 28px;
       padding: 0 20px;
     }
 
     .story-card-horizontal {
       display: flex;
       align-items: stretch;
-      background: var(--card-dark);
-      border: 1px solid var(--border-light);
-      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .12), rgba(0, 46, 46, .42));
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 26px;
       min-height: 380px;
       overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      box-shadow: 0 22px 55px rgba(0, 18, 20, .3), inset 0 1px 0 rgba(255,255,255,.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .story-card-horizontal:hover {
       transform: translateY(-4px);
-      border-color: rgba(255, 255, 255, 0.4);
+      border-color: rgba(186, 245, 236, 0.55);
+      box-shadow: 0 28px 65px rgba(0, 18, 20, .38), inset 0 1px 0 rgba(255,255,255,.16);
     }
 
     .story-card-horizontal.reverse {
@@ -161,6 +173,17 @@
       background: #051111;
     }
 
+    .story-img-container::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background: linear-gradient(90deg, transparent 68%, rgba(0, 49, 49, .42));
+      pointer-events: none;
+    }
+    .story-card-horizontal.reverse .story-img-container::after {
+      background: linear-gradient(270deg, transparent 68%, rgba(0, 49, 49, .42));
+    }
+
     .story-img-container img {
       width: 100%;
       height: 100%;
@@ -170,14 +193,18 @@
     }
 
     .story-text-container {
+      position: relative;
+      z-index: 1;
       flex: 0 0 50%;
       width: 50%;
-      padding: 40px;
+      padding: clamp(28px, 3.2vw, 44px);
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background: transparent;
+      background: linear-gradient(135deg, rgba(0, 67, 65, .38), rgba(0, 38, 40, .58));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .story-text-container h2 {
@@ -201,16 +228,18 @@
     }
 
     .quote-box {
-      background: var(--card-dark);
-      border: 1px solid rgba(163, 228, 215, 0.4);
-      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(255,255,255,.13), rgba(0,43,43,.48));
+      border: 1px solid rgba(186, 245, 236, .38);
+      border-radius: 24px;
       padding: 35px 40px;
       margin: 10px 0;
       color: var(--text-white);
       font-style: italic;
       font-size: 1.2rem;
       line-height: 1.7;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 55px rgba(0, 20, 22, .28), inset 0 1px 0 rgba(255,255,255,.12);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       position: relative;
     }
 
@@ -254,20 +283,24 @@
     }
 
     .media-card {
-      background: var(--card-dark);
-      border: 1px solid var(--border-light);
-      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(0,42,43,.48));
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 22px;
       padding: 28px;
       color: var(--text-white);
       text-decoration: none;
       display: flex;
       flex-direction: column;
-      transition: all 0.3s ease;
+      box-shadow: 0 18px 42px rgba(0,20,22,.22), inset 0 1px 0 rgba(255,255,255,.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .media-card:hover {
       transform: translateY(-5px);
-      border-color: var(--accent-teal);
+      border-color: rgba(186, 245, 236, .65);
+      box-shadow: 0 24px 52px rgba(0,20,22,.34), inset 0 1px 0 rgba(255,255,255,.16);
     }
 
     .media-source {
@@ -324,10 +357,19 @@
       .story-img-container {
         height: 300px;
       }
+      .story-img-container::after,
+      .story-card-horizontal.reverse .story-img-container::after {
+        background: linear-gradient(180deg, transparent 58%, rgba(0, 49, 49, .38));
+      }
       .story-text-container {
         padding: 25px;
       }
-      .about-hero h1 { font-size: 1.9rem; }
+      .about-hero {
+        margin: 22px 14px 0;
+        padding: 38px 20px;
+        border-radius: 24px;
+      }
+      .about-hero h1 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
     }
   </style>
 </head>
