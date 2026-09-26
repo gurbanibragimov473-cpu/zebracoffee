@@ -175,32 +175,72 @@
       padding: 0 15px;
     }
     .menu-card {
-      background: rgba(0, 90, 90, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 20px;
-      padding: 20px;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 220px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.19), rgba(255,255,255,0.04) 48%, rgba(0,45,52,0.22)),
+        rgba(0, 90, 90, 0.38);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      border-radius: 24px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      transition: all 0.3s ease;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 14px 34px rgba(0, 40, 45, 0.22), inset 0 1px 0 rgba(255,255,255,0.2);
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
       cursor: pointer;
+    }
+    .menu-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(125deg, rgba(255,255,255,0.11), transparent 38%, transparent 70%, rgba(0,220,210,0.09));
+    }
+    .menu-card > div {
+      position: relative;
+      z-index: 1;
     }
     .menu-card:hover {
       transform: translateY(-5px);
-      border-color: #ffffff;
+      border-color: rgba(255,255,255,0.72);
+      box-shadow: 0 20px 42px rgba(0, 35, 40, 0.3), inset 0 1px 0 rgba(255,255,255,0.28);
+      background-color: rgba(0, 105, 105, 0.52);
     }
     .card-badge {
-      font-size: 0.72rem; text-transform: uppercase;
-      letter-spacing: 1.2px; color: #a3e4d7; font-weight: 800; margin-bottom: 6px;
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      color: #d7fffa;
+      font-weight: 800;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.09);
     }
     .card-title {
-      font-size: 1.15rem; font-weight: 800; color: #ffffff;
-      margin-bottom: 12px; line-height: 1.35;
+      font-size: 1.16rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.35;
+      letter-spacing: 0.1px;
+      text-shadow: 0 2px 12px rgba(0,35,40,0.22);
     }
     .card-subtext {
-      font-size: 0.82rem; color: #e0f7f7; margin-bottom: 15px; line-height: 1.4;
+      font-size: 0.82rem;
+      color: rgba(235,255,252,0.82);
+      margin-bottom: 16px;
+      line-height: 1.5;
     }
     .card-bottom {
       display: flex; align-items: flex-end; justify-content: space-between;
@@ -282,7 +322,58 @@
     .modal-body {
       padding: 24px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 20px;
     }
-    .mod-group-title {
+    .modal-selected-product {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 190px;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.16), rgba(255,255,255,0.045));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 12px 28px rgba(0,35,40,0.16);
+    }
+    .modal-selected-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 15px;
+      background: rgba(255,255,255,0.12);
+      color: #baf7e9;
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+    .modal-selected-label {
+      color: rgba(220,255,249,0.72);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    .modal-selected-name {
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 900;
+      line-height: 1.35;
+      text-wrap: balance;
+    }
+    .modal-selected-price {
+      padding: 7px 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }    .mod-group-title {
       font-size: 0.95rem; font-weight: 800; color: #a3e4d7;
       text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
     }
@@ -657,9 +748,10 @@
         const hasDiscount = currentDiscount > 0 || item.promoPrice;
         let priceHTML = hasDiscount ? `<div><span class="old-price">${item.price} ₸</span><span class="final-price">${finalPrice} ₸</span></div>` : `<div><span class="final-price">${finalPrice} ₸</span></div>`;
 
-        let subtext = "Нажмите для просмотра параметров";
-        if (item.sizes) subtext = `Размеры: ${item.sizes.length} варианта`;
-        else if (item.colors) subtext = `Варианты: ${item.colors.length} вида`;
+        let subtext = "Подробнее о товаре";
+        if (item.sizes) subtext = "Выберите размер • " + item.sizes.length + " варианта";
+        else if (item.colors) subtext = "Выберите вариант • " + item.colors.length + " вида";
+        else if (item.hasBeans || item.hasSugar || item.hasTemp || item.hasOrderType || item.hasPlantMilk) subtext = "Настройте напиток по своему вкусу";
 
         card.innerHTML = `<div><div class="card-badge">Zebra Coffee</div><div class="card-title">${item.name}</div><div class="card-subtext">${subtext}</div></div><div class="card-bottom">${priceHTML}</div>`;
         grid.appendChild(card);
@@ -824,6 +916,31 @@
         });
         group.appendChild(flex);
         body.appendChild(group);
+      }
+
+      if (body.children.length === 0) {
+        const selectedCard = document.createElement("div");
+        selectedCard.className = "modal-selected-product";
+
+        const selectedMark = document.createElement("span");
+        selectedMark.className = "modal-selected-mark";
+        selectedMark.setAttribute("aria-hidden", "true");
+        selectedMark.textContent = "✓";
+
+        const selectedLabel = document.createElement("span");
+        selectedLabel.className = "modal-selected-label";
+        selectedLabel.textContent = "Ваш выбор";
+
+        const selectedName = document.createElement("div");
+        selectedName.className = "modal-selected-name";
+        selectedName.textContent = product.name;
+
+        const selectedPrice = document.createElement("span");
+        selectedPrice.className = "modal-selected-price";
+        selectedPrice.textContent = calculateDiscountedPrice(modalSelectedPrice).toLocaleString() + " ₸";
+
+        selectedCard.append(selectedMark, selectedLabel, selectedName, selectedPrice);
+        body.appendChild(selectedCard);
       }
 
       updateModalPrice();
