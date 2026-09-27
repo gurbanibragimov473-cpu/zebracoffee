@@ -55,24 +55,57 @@
       gap: 25px;
     }
     .step-card {
-      background: rgba(0, 90, 90, 0.65);
+      --step-image: none;
+      background: #064b49;
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 20px;
-      padding: 30px 25px;
+      padding: 50px 25px 30px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 230px;
+      box-sizing: border-box;
       backdrop-filter: blur(10px);
       position: relative;
-      transition: all 0.3s ease;
+      isolation: isolate;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 16px 38px rgba(0, 26, 27, 0.18);
     }
+    .step-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image: linear-gradient(180deg, rgba(0, 31, 33, 0.82), rgba(0, 24, 26, 0.94)), var(--step-image);
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.01);
+      transition: transform 0.55s ease;
+    }
+    .step-card:nth-child(1) { --step-image: url("images/coins-step-app.png"); }
+    .step-card:nth-child(1)::before { background-position: center 28%; }
+    .step-card:nth-child(2) { --step-image: url("images/coins-step-scan.png"); }
+    .step-card:nth-child(2)::before { background-position: center 52%; }
+    .step-card:nth-child(3) { --step-image: url("images/coins-step-rewards.png"); }
+    .step-card:nth-child(3)::before { background-position: center 48%; }
     .step-card:hover {
       transform: translateY(-6px);
-      border-color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 22px 46px rgba(0, 26, 27, 0.28);
     }
+    .step-card:hover::before { transform: scale(1.06); }
+    .step-icon, .step-title, .step-desc { position: relative; z-index: 1; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72); }
+    .step-title { text-wrap: balance; }
+
     .step-number {
       position: absolute;
-      top: -15px;
+      top: 14px;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 2;
       background: #ffffff;
       color: #007a7a;
       width: 32px;
@@ -82,7 +115,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
     }
     .step-icon {
       font-size: 2.5rem;
@@ -93,14 +126,16 @@
       font-size: 1.2rem;
       font-weight: 800;
       color: #ffffff;
-      margin-bottom: 8px;
+      margin: 0 0 8px;
+      line-height: 1.25;
     }
     .step-desc {
       font-size: 0.95rem;
       color: #e0f7f7;
       line-height: 1.5;
+      max-width: 24rem;
+      margin: 0 auto;
     }
-
     .download-app-banner {
       background: rgba(0, 90, 90, 0.65);
       border: 2px solid rgba(255, 255, 255, 0.4);
@@ -182,6 +217,13 @@
       border-radius: 20px;
       padding: 25px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      justify-content: center;
+      min-height: 230px;
+      box-sizing: border-box;
       backdrop-filter: blur(10px);
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       transition: all 0.3s ease;
@@ -211,26 +253,6 @@
       max-width: 850px;
       margin: 50px auto 70px auto;
       padding: 0 20px;
-    }
-    .faq-search-box {
-      width: 100%;
-      padding: 14px 20px;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: rgba(0, 90, 90, 0.65);
-      color: #ffffff;
-      font-size: 1rem;
-      margin-bottom: 25px;
-      outline: none;
-      backdrop-filter: blur(8px);
-      box-sizing: border-box;
-      transition: border-color 0.3s ease;
-    }
-    .faq-search-box::placeholder {
-      color: #a3e4d7;
-    }
-    .faq-search-box:focus {
-      border-color: #ffffff;
     }
     .faq-container {
       display: flex;
@@ -321,8 +343,8 @@
         <ul>
           <li><a href="index.html">Главная</a></li>
           <li><a href="menu.html">Меню</a></li>
-          <li><a href="about.html">О владельце</a></li>
-          <li><a href="zebra-coins.html" class="active">Система скидок</a></li>
+          <li><a href="about.html">Основатель</a></li>
+          <li><a href="zebra-coins.html" class="active">Zebra Coins</a></li>
           <li><a href="addresses.html">Адреса</a></li>
           <li><a href="job.html">Работа у нас</a></li>
           <li><a href="creators.html">The Creator</a></li>
@@ -342,21 +364,21 @@
       <div class="steps-grid">
         <div class="step-card">
           <div class="step-number">1</div>
-          <span class="step-icon">📱</span>
+          
           <div class="step-title">Установите приложение</div>
           <div class="step-desc">Скачайте Zebra Coffee KZ из Google Play или App Store и зарегистрируйтесь за пару минут.</div>
         </div>
         <div class="step-card">
           <div class="step-number">2</div>
-          <span class="step-icon">📷</span>
+          
           <div class="step-title">Сканируйте QR</div>
-          <div class="step-desc">Показывайте QR-код из приложения бариста при каждой покупке любимого кофе.</div>
+          <div class="step-desc">Покажите QR-код из приложения бариста при покупке кофе.</div>
         </div>
         <div class="step-card">
           <div class="step-number">3</div>
-          <span class="step-icon">🎉</span>
+          
           <div class="step-title">Получайте выгоду</div>
-          <div class="step-desc">Зарабатывайте по 10 баллов за визит, повышайте уровень и забирайте скидку до 10%!</div>
+          <div class="step-desc">Получайте 10 баллов за визит, повышайте уровень и открывайте скидку до 10%.</div>
         </div>
       </div>
     </div>
@@ -408,7 +430,6 @@
 
     <div class="faq-wrapper">
       <div class="section-heading">Частые вопросы (FAQ)</div>
-      <input type="text" class="faq-search-box" id="faqSearch" placeholder="🔍 Найти вопрос..." oninput="filterFaq()">
       <div class="faq-container" id="faqContainer">
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
@@ -507,20 +528,6 @@
       if (!isActive) {
         item.classList.add('active');
       }
-    }
-
-    function filterFaq() {
-      const query = document.getElementById('faqSearch').value.toLowerCase();
-      const items = document.querySelectorAll('.faq-item');
-      items.forEach(item => {
-        const text = item.querySelector('.faq-question span').textContent.toLowerCase();
-        if (text.includes(query)) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    }
-  </script>
+    }  </script>
 </body>
 </html>
