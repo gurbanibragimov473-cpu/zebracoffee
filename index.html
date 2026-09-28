@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zebra Coffee</title>
+  <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-teal: #007a7a;
+      --accent-teal: #a3e4d7;
+      --glass-bg: rgba(0, 50, 50, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.25);
+      --text-white: #ffffff;
+    }
+
+    body {
+      background-color: var(--bg-teal);
+      color: var(--text-white);
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .hero-buttons-row {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .hero-btn-primary {
+      display: inline-block;
+      background: #ffffff;
+      color: var(--bg-teal);
+      padding: 14px 30px;
+      border-radius: 30px;
+      font-weight: 900;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
+    }
+    .hero-btn-primary:hover {
+      background: #e0f7f7;
+      transform: translateY(-3px);
+    }
+    .hero-btn-secondary {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      padding: 14px 30px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .hero-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-3px);
+    }
+
+    .steam-line-1 {
+      animation: riseSteam1 2.4s ease-in-out infinite;
+      transform-origin: 90px 46px;
+    }
+    .steam-line-2 {
+      animation: riseSteam2 2.8s ease-in-out infinite;
+      animation-delay: 0.9s;
+      transform-origin: 90px 46px;
+    }
+
+    @keyframes riseSteam1 {
+      0% {
+        transform: translateY(0px) scale(0.4);
+        opacity: 0;
+      }
+      30% {
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateY(-38px) scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes riseSteam2 {
+      0% {
+        transform: translateY(0px) scale(0.3);
+        opacity: 0;
+      }
+      35% {
+        opacity: 0.85;
+      }
+      80% {
+        opacity: 0.15;
+      }
+      100% {
+        transform: translateY(-42px) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1100px;
+      margin: 0 auto 60px auto;
+      padding: 0 15px;
+    }
+
+    .feature-box {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 32px 25px;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(0, 30, 30, 0.25);
+      transition: all 0.3s ease;
+    }
+    .feature-box:hover {
+      transform: translateY(-5px);
+      background: rgba(0, 70, 70, 0.6);
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+    .feature-box h3 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent-teal);
+      margin-bottom: 12px;
+    }
+    .feature-box p {
+      font-size: 1rem;
+      color: #f0fdfd;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .home-gallery {
+      max-width: 1100px;
+      margin: 20px auto 70px;
+      padding: 0 15px;
+    }
+    .home-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-auto-rows: 160px;
+      gap: 16px;
+    }
+    .home-gallery-item {
+      position: relative;
+      grid-column: span 5;
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 22px;
+      background: rgba(0, 45, 45, 0.7);
+      box-shadow: 0 14px 32px rgba(0, 30, 30, 0.24);
+    }
+    .home-gallery-item--hero {
+      grid-column: 1 / -1;
+      grid-row: span 3;
+      min-height: 512px;
+    }
+    .home-gallery-item:nth-child(2),
+    .home-gallery-item:nth-child(5) {
+      grid-column: span 7;
+      grid-row: span 2;
+      min-height: 336px;
+    }
+    .home-gallery-item:nth-child(3),
+    .home-gallery-item:nth-child(4) {
+      grid-column: span 5;
+      grid-row: span 2;
+      min-height: 336px;
+    }
+    .home-gallery-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.55s ease;
+    }
+    .home-gallery-item:hover img {
+      transform: scale(1.04);
+    }
+    .home-gallery-item--hero {
+      background: linear-gradient(145deg, #075d5a, #003b3a 72%, #002f31);
+    }
+    .home-gallery-item--hero img {
+      position: absolute;
+      inset: 0 0 0 58%;
+      width: 42%;
+      object-position: center 48%;
+    }
+    .home-gallery-item.home-gallery-item--hero::after {
+      inset: 0 0 0 58%;
+      background: linear-gradient(90deg, rgba(0, 43, 42, 0.08), rgba(0, 25, 27, 0.18));
+    }
+    .home-gallery-item::after {
+      position: absolute;
+      inset: 25% 0 0;
+      content: "";
+      background: linear-gradient(180deg, transparent, rgba(0, 24, 26, 0.82));
+      pointer-events: none;
+    }
+    .home-gallery-item figcaption {
+      position: absolute;
+      z-index: 1;
+      right: 22px;
+      bottom: 20px;
+      left: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+    .home-gallery-item figcaption span {
+      color: #baf5ec;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .home-gallery-item figcaption strong {
+      font-size: clamp(1rem, 2.1vw, 1.35rem);
+      line-height: 1.35;
+    }
+    .home-gallery-item figcaption .home-gallery-copy {
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: normal;
+      line-height: 1.45;
+      text-transform: none;
+    }
+    .home-gallery-item--hero figcaption.home-photo-hero {
+      top: 0;
+      right: auto;
+      bottom: 0;
+      left: 0;
+      width: 58%;
+      box-sizing: border-box;
+      justify-content: center;
+      gap: 18px;
+      padding: clamp(28px, 4vw, 52px);
+      border: 0;
+      border-right: 1px solid rgba(255,255,255,.14);
+      border-left: 0;
+      border-radius: 20px 0 0 20px;
+      background: linear-gradient(145deg, #075d5a, #004542 62%, #003333);
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      text-shadow: none;
+      transform: none;
+    }
+    .home-photo-hero .home-photo-kicker {
+      color: #baf5ec;
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-weight: 700;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+    .home-photo-hero h1 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(2rem, 3.1vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.08;
+    }
+    .home-photo-hero p {
+      margin: 0;
+      color: rgba(255,255,255,.95);
+      font-size: clamp(1rem, 1.55vw, 1.2rem);
+      line-height: 1.6;
+    }
+    .home-photo-hero .hero-buttons-row {
+      margin-top: 4px;
+    }
+
+    @media screen and (max-width: 850px) {
+      .home-gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(320px, auto);
+      }
+      .home-gallery-item,
+      .home-gallery-item:nth-child(n+2) {
+        grid-column: span 2;
+        grid-row: auto;
+        min-height: 320px;
+      }
+      .home-gallery-item--hero {
+        min-height: 500px;
+      }
+    }
+    @media screen and (max-width: 520px) {
+      .home-gallery {
+        margin-bottom: 48px;
+      }
+      .home-gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(320px, auto);
+        gap: 12px;
+      }
+      .home-gallery-item,
+      .home-gallery-item:nth-child(n+2) {
+        grid-column: span 1;
+        grid-row: auto;
+        min-height: 320px;
+      }
+      .home-gallery-item--hero {
+        grid-column: span 1;
+        grid-row: auto;
+        min-height: 540px;
+      }
+      .home-gallery-item--hero figcaption.home-photo-hero {
+        top: auto;
+        right: 17px;
+        bottom: 20px;
+        left: 17px;
+        width: auto;
+        padding: 22px 18px;
+        transform: none;
+        gap: 12px;
+      }
+      .home-gallery-item figcaption {
+        right: 17px;
+        bottom: 16px;
+        left: 17px;
+      }
+    }
+    @media screen and (max-width: 650px) {
+      .home-gallery-grid {
+        display: block;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+      }
+      .home-gallery-item:not(.home-gallery-item--hero) {
+        display: none;
+      }
+      .home-gallery-item--hero {
+        display: flex;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+      }
+      .home-gallery-item--hero img {
+        inset: 0 0 auto;
+        width: 100%;
+        height: 220px;
+        object-position: center 55%;
+      }
+      .home-gallery-item.home-gallery-item--hero::after {
+        inset: 0 0 auto;
+        height: 220px;
+        background: linear-gradient(180deg, transparent 55%, rgba(0, 48, 48, .55));
+      }
+      .home-gallery-item--hero figcaption.home-photo-hero {
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 220px;
+        padding: 22px 20px 26px;
+        gap: 11px;
+        border: 0;
+        border-top: 1px solid rgba(255,255,255,.16);
+        border-left: 0;
+        border-radius: 0;
+        background: linear-gradient(180deg, #064542, #003b3a);
+        transform: none;
+      }
+      .home-photo-hero h1 {
+        font-size: clamp(1.75rem, 7.2vw, 2.35rem);
+      }
+      .home-photo-hero p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      .home-photo-hero .hero-buttons-row {
+        gap: 10px;
+      }
+      .home-photo-hero .hero-btn-primary,
+      .home-photo-hero .hero-btn-secondary {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 24px;
+      }
+      .feature-box {
+        position: relative;
+        display: flex;
+        min-height: 190px;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: hidden;
+        isolation: isolate;
+        padding: 24px;
+        border-color: rgba(255,255,255,.24);
+        background: #003c3d;
+        text-align: left;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+      .feature-box::before,
+      .feature-box::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        pointer-events: none;
+      }
+      .feature-box::before {
+        z-index: -2;
+        background-image: var(--feature-image);
+        background-position: center;
+        background-size: cover;
+        opacity: .7;
+      }
+      .feature-box::after {
+        z-index: -1;
+        background: linear-gradient(90deg, rgba(0,30,31,.9), rgba(0,35,36,.48)), linear-gradient(0deg, rgba(0,24,26,.75), transparent 85%);
+      }
+      .feature-box:nth-child(1) {
+        --feature-image: url("images/home-coffee-making.jpg");
+      }
+      .feature-box:nth-child(2) {
+        --feature-image: url("images/home-guest-service.jpg");
+      }
+      .feature-box:nth-child(2)::before {
+        background-position: center 42%;
+        background-size: cover;
+      }
+      .feature-box:nth-child(3) {
+        --feature-image: url("images/home-barista-service.jpg");
+      }
+      .feature-box h3 {
+        position: relative;
+        margin: 0 0 8px;
+        color: #baf5ec;
+        font-size: 1.55rem;
+        text-shadow: 0 2px 12px rgba(0,0,0,.6);
+      }
+      .feature-box p {
+        position: relative;
+        max-width: 36rem;
+        color: #fff;
+        font-size: 1rem;
+        line-height: 1.55;
+        text-shadow: 0 2px 12px rgba(0,0,0,.8);
+      }
+    }  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo-container">
+        <img src="images/zebra-mark-white.png" alt="Zebra Coffee" class="logo-img">
+        <div class="logo-brand-text">
+          <span class="logo-brand-title">ZEBRA COFFEE</span>
+          <span class="logo-brand-subtitle">Кофе, который объединяет</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Главная</a></li>
+          <li><a href="menu.html">Меню</a></li>
+          <li><a href="about.html">Основатель</a></li>
+          <li><a href="zebra-coins.html">Zebra Coins</a></li>
+          <li><a href="addresses.html">Адреса</a></li>
+          <li><a href="job.html">Работа у нас</a></li>
+          <li><a href="creators.html">The Creator</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="home-gallery" aria-label="Zebra Coffee">
+      <div class="home-gallery-grid">
+        <figure class="home-gallery-item home-gallery-item--hero">
+          <img src="images/home-interior.jpg" alt="Уютный интерьер кофейни Zebra Coffee" loading="eager" decoding="async">
+          <figcaption class="home-photo-hero">
+            <span class="home-photo-kicker">Ваш любимый ритуал в Zebra Coffee.</span>
+            <h1>КОФЕ, УЮТ И ЗАБОТА — В ZEBRA COFFEE</h1>
+            <p>Вкуснейший кофе, свежие десерты и уютный уголок в центре города. Место, где приятно собраться всей семьёй и подарить себе минутку удовольствия.</p>
+            <div class="hero-buttons-row">
+              <a href="menu.html" class="hero-btn-primary">Открыть меню</a>
+              <a href="zebra-coins.html" class="hero-btn-secondary">Zebra Coins &amp; Скидки</a>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="home-gallery-item">
+          <img src="images/home-coffee-making.jpg" alt="Бариста готовит кофе на профессиональной кофемашине" loading="lazy" decoding="async">
+          <figcaption><strong>Готовим с любовью и мастерством</strong><span class="home-gallery-copy">Наша команда бариста доводит каждую чашку до идеала на профессиональном оборудовании. Горячий кофе — именно так, как ты любишь!</span></figcaption>
+        </figure>
+        <figure class="home-gallery-item">
+          <img src="images/home-cafe-team.jpg" alt="Команда Zebra Coffee за работой" loading="lazy" decoding="async">
+          <figcaption><strong>Программа лояльности Zebra Coins</strong><span class="home-gallery-copy">Скачивайте наше мобильное приложение, сканируйте персональный QR-код на кассе при каждой покупке и получайте дополнительную скидку и бонусы за каждый напиток.</span></figcaption>
+        </figure>
+        <figure class="home-gallery-item">
+          <img src="images/home-barista-service.jpg" alt="Бариста помогает гостям выбрать напиток" loading="lazy" decoding="async">
+          <figcaption><strong>Огромный выбор напитков на любой вкус</strong><span class="home-gallery-copy">Классический горячий кофе, освежающие холодные Frappe, ароматные чаи и фирменные рецепты Zebra Coffee. Найди свой любимый вкус!</span></figcaption>
+        </figure>
+        <figure class="home-gallery-item">
+          <img src="images/home-guest-service.jpg" alt="Гость оформляет заказ в Zebra Coffee" loading="lazy" decoding="async">
+          <figcaption><strong>Напитки и лакомства для всей семьи!</strong><span class="home-gallery-copy">Порадуйте себя и близких: молочные коктейли, сочные лимонады и авторские напитки, которые понравятся детям и вашей второй половинке!</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="features-grid">
+      <div class="feature-box">
+        <h3>100%</h3>
+        <p>Арабика свежей обжарки высокого качества для каждого нашего гостя.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Zebra Coins</h3>
+        <p>Установите приложение, показывайте QR-код на кассе и получайте скидку на покупки.</p>
+      </div>
+      <div class="feature-box">
+        <h3>3 вида</h3>
+        <p>Выбирайте зерно на свой вкус: классический Blend, 100% Arabica или Decaf без кофеина.</p>
+      </div>
+    </div>
+
+
+  </div>
+
+  <footer>
+    <p>© 2026 Zebra Coffee — Павлодар. Создатель сайта: <strong>Ибрагимов Гурбан</strong></p>
+  </footer>
+
+  <script src="i18n.js" defer></script>
+</body>
+</html>

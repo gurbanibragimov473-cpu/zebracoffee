@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Адреса — Zebra Coffee</title>
+  <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .page-hero {
+      text-align: center;
+      padding: 40px 20px 10px 20px;
+    }
+    .page-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .page-hero p {
+      color: #e0f7f7;
+      font-size: 1.15rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .city-selector-wrapper {
+      text-align: center;
+      margin: 25px auto 15px auto;
+      padding: 0 10px;
+    }
+    .city-selector-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .city-buttons-container {
+      display: inline-flex;
+      background: rgba(0, 60, 60, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      padding: 6px;
+      border-radius: 40px;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .city-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .city-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .city-btn.active {
+      background: #ffffff;
+      color: #007a7a;
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    }
+    .navigator-illustration-box {
+      background: rgba(0, 90, 90, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 24px;
+      max-width: 1000px;
+      margin: 30px auto 40px auto;
+      padding: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 30px;
+      align-items: center;
+      box-sizing: border-box;
+    }
+    .navigator-text-side h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .navigator-text-side p {
+      color: #e0f7f7;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .gis-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #60a727;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+    .map-svg-art {
+      width: 100%;
+      height: 220px;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
+    }
+    .address-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 20px auto 60px auto;
+      padding: 0 15px;
+      box-sizing: border-box;
+      transition: opacity 0.3s ease;
+    }
+    .address-card {
+      background: rgba(0, 90, 90, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 22px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .address-card:hover {
+      border-color: #ffffff;
+      box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .location-tag {
+      font-size: 0.85rem;
+      color: #a3e4d7;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .address-card h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .work-time-info {
+      color: #e0f7f7;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .work-time-info strong {
+      color: #ffffff;
+    }
+    .gis-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #60a727;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.92rem;
+      box-sizing: border-box;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(96, 167, 39, 0.4);
+    }
+    .gis-btn:hover {
+      background: #73c330;
+      box-shadow: 0 8px 20px rgba(96, 167, 39, 0.6);
+    }
+    .gis-logo-icon {
+      width: 22px;
+      height: 22px;
+      background: #ffffff;
+      color: #60a727;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    @media screen and (max-width: 850px) {
+      .navigator-illustration-box {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 20px;
+        margin: 20px 15px;
+      }
+      .gis-status-badge {
+        margin-bottom: 10px;
+      }
+      .navigator-text-side br {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .page-hero h1 {
+        font-size: 2.1rem;
+      }
+      .page-hero p {
+        font-size: 1rem;
+      }
+      .city-buttons-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 8px;
+        border-radius: 20px;
+      }
+      .city-btn {
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 0.95rem;
+      }
+      .address-grid {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+      }
+      .address-card {
+        padding: 20px;
+      }
+      .address-card h3 {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo-container">
+        <img src="images/zebra-mark-white.png" alt="Zebra Coffee" class="logo-img">
+        <div class="logo-brand-text">
+          <span class="logo-brand-title">ZEBRA COFFEE</span>
+          <span class="logo-brand-subtitle">Кофе, который объединяет</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="menu.html">Меню</a></li>
+          <li><a href="about.html">Основатель</a></li>
+          <li><a href="zebra-coins.html">Zebra Coins</a></li>
+          <li><a href="addresses.html" class="active">Адреса</a></li>
+          <li><a href="job.html">Работа у нас</a></li>
+          <li><a href="creators.html">The Creator</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="page-hero">
+      <h1>НАШИ КОФЕЙНИ ZEBRA COFFEE</h1>
+      <p>Выберите город, чтобы построить маршрут в 2ГИС</p>
+    </div>
+
+    <div class="city-selector-wrapper">
+      <div class="city-selector-title">ВЫБЕРИТЕ ГОРОД:</div>
+      <div class="city-buttons-container">
+        <button class="city-btn active" id="btnPavlodar" onclick="selectCity('pavlodar')">Павлодар</button>
+        <button class="city-btn" id="btnEkibastuz" onclick="selectCity('ekibastuz')">Экибастуз</button>
+        <button class="city-btn" id="btnAksu" onclick="selectCity('aksu')">Аксу</button>
+      </div>
+    </div>
+
+    <div class="navigator-illustration-box">
+      <div class="navigator-text-side">
+        <div class="gis-status-badge">Интерактивный навигатор 2ГИС</div>
+        <br><br>
+        <h2 id="cityNameDisplay">Кофейни в Павлодаре</h2>
+        <p id="cityDescDisplay">Нажмите на кнопку ниже — приложение 2ГИС проложит маршрут до кофейни.</p>
+      </div>
+
+      <svg class="map-svg-art" viewBox="0 0 450 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="450" height="250" rx="16" fill="#004d4d" opacity="0.6"/>
+        <path d="M 20 220 C 100 210, 120 120, 220 130 C 320 140, 310 40, 420 30" stroke="#ffffff" stroke-width="14" stroke-linecap="round" opacity="0.8"/>
+        <path d="M 20 220 C 100 210, 120 120, 220 130 C 320 140, 310 40, 420 30" stroke="#60a727" stroke-width="6" stroke-dasharray="10 8" stroke-linecap="round"/>
+        <g transform="translate(30, 140)">
+          <circle cx="20" cy="15" r="10" fill="#ffffff"/>
+          <path d="M 10 50 C 10 30, 30 30, 30 50 Z" fill="#a3e4d7"/>
+          <path d="M 25 35 L 40 28" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+          <rect x="38" y="20" width="12" height="20" rx="3" fill="#60a727" stroke="#ffffff" stroke-width="1.5"/>
+        </g>
+        <g transform="translate(130, 100)">
+          <path d="M12 0 C5.4 0 0 5.4 0 12 C0 21 12 32 12 32 C12 32 24 21 24 12 C24 5.4 18.6 0 12 0 Z" fill="#60a727" stroke="#ffffff" stroke-width="2"/>
+          <circle cx="12" cy="11" r="5" fill="#ffffff"/>
+        </g>
+        <g transform="translate(230, 110)">
+          <path d="M12 0 C5.4 0 0 5.4 0 12 C0 21 12 32 12 32 C12 32 24 21 24 12 C24 5.4 18.6 0 12 0 Z" fill="#60a727" stroke="#ffffff" stroke-width="2"/>
+          <circle cx="12" cy="11" r="5" fill="#ffffff"/>
+        </g>
+        <g transform="translate(330, 35)">
+          <path d="M12 0 C5.4 0 0 5.4 0 12 C0 21 12 32 12 32 C12 32 24 21 24 12 C24 5.4 18.6 0 12 0 Z" fill="#60a727" stroke="#ffffff" stroke-width="2"/>
+          <circle cx="12" cy="11" r="5" fill="#ffffff"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="address-grid" id="addressGrid"></div>
+  </div>
+
+  <footer>
+    <p>© 2026 Zebra Coffee — Павлодар. Создатель сайта: <strong>Ибрагимов Гурбан</strong></p>
+  </footer>
+
+  <script>
+    const pavlodarData = [
+      { tag: "ЖК Capital", address: "ул. Академика Сатпаева, 65", time: "Ежедневно с 07:00", reviews: "890+ оценок в 2ГИС", link: "https://2gis.kz/pavlodar/search/Zebra%20Coffee%20%D0%A1%D0%B0%D1%82%D0%BF%D0%B0%D0%B5%D0%B2%D0%B0%2065" },
+      { tag: "ТРЦ Batyr Mall", address: "ул. Камзина, 67/1", time: "Ежедневно 10:00 – 22:00", reviews: "550+ оценок в 2ГИС", link: "https://2gis.kz/pavlodar/search/Zebra%20Coffee%20Batyr%20Mall" },
+      { tag: "ЖК Ertis", address: "ул. Павлова, 50/10", time: "Ежедневно с 07:30", reviews: "425+ оценок в 2ГИС", link: "https://2gis.kz/pavlodar/search/Zebra%20Coffee%20%D0%9F%D0%B0%D0%B2%D0%BB%D0%BE%D0%B2%D0%B0%2050%2F10" },
+      { tag: "Центр", address: "ул. Торайгырова, 73", time: "Ежедневно с 07:30", reviews: "845+ оценок в 2ГИС", link: "https://2gis.kz/pavlodar/search/Zebra%20Coffee%20%D0%A2%D0%BE%D1%80%D0%B0%D0%B9%D0%B3%D1%8B%D1%80%D0%BE%D0%B2%D0%B0%2073" },
+      { tag: "Университет", address: "ул. Павлова, 26/4", time: "Ежедневно с 07:30", reviews: "118+ оценок в 2ГИС", link: "https://2gis.kz/pavlodar/search/Zebra%20Coffee%20%D0%9F%D0%B0%D0%B2%D0%BB%D0%BE%D0%B2%D0%B0%2026%2F4" }
+    ];
+
+    const ekibastuzData = [
+      { tag: "Центральный филиал", address: "ул. Естая Беркимбаева, 95/1", time: "Ежедневно с 07:30", reviews: "699 оценок в 2ГИС", link: "https://2gis.kz/ekibastuz/search/Zebra%20coffee%20%D0%95%D1%81%D1%82%D0%B0%D1%8F%20%D0%91%D0%B5%D1%80%D0%BA%D0%B8%D0%BC%D0%B1%D0%B0%D0%B5%D0%B2%D0%B0%2095%2F1" },
+      { tag: "Ауэзова", address: "ул. Мухтара Ауэзова, 149/3", time: "Ежедневно с 07:30", reviews: "99 оценок в 2ГИС", link: "https://2gis.kz/ekibastuz/search/Zebra%20coffee%20%D0%90%D1%83%D1%8D%D0%B7%D0%BE%D0%B2%D0%B0%20149%2F3" },
+      { tag: "Кофейный Киоск", address: "ул. Мухтара Ауэзова, 49Б (киоск)", time: "Ежедневно с 07:30", reviews: "187 оценок в 2ГИС", link: "https://2gis.kz/ekibastuz/search/Zebra%20coffee%20%D0%90%D1%83%D1%8D%D0%B7%D0%BE%D0%B2%D0%B0%2049%D0%91" },
+      { tag: "Машхур Жусупа", address: "ул. Машхур Жусупа, 52в/3", time: "Ежедневно с 07:30", reviews: "368 оценок в 2ГИС", link: "https://2gis.kz/ekibastuz/search/Zebra%20coffee%20%D0%9C%D0%B0%D1%88%D1%85%D1%83%D1%80%20%D0%96%D1%83%D1%81%D1%83%D0%BF%D0%B0%2052%2F3" },
+      { tag: "Уютный филиал", address: "ул. Мухтара Ауэзова, 47Б", time: "Ежедневно с 09:30", reviews: "515 оценок в 2ГИС", link: "https://2gis.kz/ekibastuz/search/Zebra%20coffee%20%D0%90%D1%83%D1%8D%D0%B7%D0%BE%D0%B2%D0%B0%2047%D0%91" }
+    ];
+
+    const aksuData = [
+      { tag: "Городской парк культуры и отдыха", address: "ул. Ленина, 24/1 киоск", time: "Ежедневно с 08:00", reviews: "199 оценок в 2ГИС", link: "https://2gis.kz/pavlodar/firm/70000001093470230" }
+    ];
+
+    function selectCity(city) {
+      const btnPavlodar = document.getElementById('btnPavlodar');
+      const btnEkibastuz = document.getElementById('btnEkibastuz');
+      const btnAksu = document.getElementById('btnAksu');
+      const nameDisplay = document.getElementById('cityNameDisplay');
+      const descDisplay = document.getElementById('cityDescDisplay');
+      const grid = document.getElementById('addressGrid');
+
+      grid.style.opacity = '0';
+
+      setTimeout(() => {
+        btnPavlodar.classList.remove('active');
+        btnEkibastuz.classList.remove('active');
+        btnAksu.classList.remove('active');
+
+        if (city === 'pavlodar') {
+          btnPavlodar.classList.add('active');
+          nameDisplay.innerText = "Кофейни в Павлодаре";
+          descDisplay.innerText = "Нажмите на кнопку ниже — приложение 2ГИС сразу откроет маршрут до кофейни в Павлодаре.";
+          renderCards(pavlodarData);
+        } else if (city === 'ekibastuz') {
+          btnEkibastuz.classList.add('active');
+          nameDisplay.innerText = "Кофейни в Экибастузе";
+          descDisplay.innerText = "Нажмите на кнопку ниже — приложение 2ГИС сразу откроет маршрут до кофейни в Экибастузе.";
+          renderCards(ekibastuzData);
+        } else if (city === 'aksu') {
+          btnAksu.classList.add('active');
+          nameDisplay.innerText = "Кофейня в Аксу";
+          descDisplay.innerText = "Нажмите на кнопку ниже — приложение 2ГИС сразу откроет маршрут до кофейни в парке Аксу.";
+          renderCards(aksuData);
+        }
+        grid.style.opacity = '1';
+      }, 200);
+    }
+
+    function renderCards(data) {
+      const grid = document.getElementById('addressGrid');
+      grid.innerHTML = '';
+
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'address-card';
+        card.innerHTML = `
+          <div>
+            <div class="card-head">
+              <span class="location-tag">${item.tag}</span>
+            </div>
+            <h3>${item.address}</h3>
+            <div class="work-time-info">
+              График: <strong>${item.time}</strong><br>
+              Отзывы: ${item.reviews}
+            </div>
+          </div>
+          <a href="${item.link}" target="_blank" class="gis-btn">
+            <span class="gis-logo-icon">2G</span>
+            Построить маршрут в 2ГИС
+          </a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCards(pavlodarData);
+    });
+  </script>
+  <script src="i18n.js" defer></script>
+</body>
+</html>
