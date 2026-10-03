@@ -750,8 +750,7 @@
   function init() {
     ensureSwitcher();
     setLanguage(readSavedLanguage());
-    const observer = new MutationObserver(records => {
-      if (records.every(r => { const el = r.target.nodeType === 1 ? r.target : r.target.parentElement; return el && el.closest("#zebra-intro"); })) return;
+    const observer = new MutationObserver(() => {
       clearTimeout(window.__zebraTranslationTimer);
       window.__zebraTranslationTimer = setTimeout(() => translatePage(readSavedLanguage()), 30);
     });
