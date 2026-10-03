@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zebra Coffee</title>
+  <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="intro.css">
+  <script>try{if(sessionStorage.getItem('zebra-intro-seen'))document.documentElement.classList.add('zi-seen')}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-teal: #007a7a;
+      --accent-teal: #a3e4d7;
+      --glass-bg: rgba(0, 50, 50, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.25);
+      --text-white: #ffffff;
+    }
+
+    body {
+      background-color: var(--bg-teal);
+      color: var(--text-white);
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .hero-buttons-row {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .hero-btn-primary {
+      display: inline-block;
+      background: #ffffff;
+      color: var(--bg-teal);
+      padding: 14px 30px;
+      border-radius: 30px;
+      font-weight: 900;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
+    }
+    .hero-btn-primary:hover {
+      background: #e0f7f7;
+      transform: translateY(-3px);
+    }
+    .hero-btn-secondary {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      padding: 14px 30px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .hero-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-3px);
+    }
+
+    .steam-line-1 {
+      animation: riseSteam1 2.4s ease-in-out infinite;
+      transform-origin: 90px 46px;
+    }
+    .steam-line-2 {
+      animation: riseSteam2 2.8s ease-in-out infinite;
+      animation-delay: 0.9s;
+      transform-origin: 90px 46px;
+    }
+
+    @keyframes riseSteam1 {
+      0% {
+        transform: translateY(0px) scale(0.4);
+        opacity: 0;
+      }
+      30% {
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateY(-38px) scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes riseSteam2 {
+      0% {
+        transform: translateY(0px) scale(0.3);
+        opacity: 0;
+      }
+      35% {
+        opacity: 0.85;
+      }
+      80% {
+        opacity: 0.15;
+      }
+      100% {
+        transform: translateY(-42px) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1100px;
+      margin: 0 auto 60px auto;
+      padding: 0 15px;
+    }
+
+    .feature-box {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 32px 25px;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(0, 30, 30, 0.25);
+      transition: all 0.3s ease;
+    }
+    .feature-box:hover {
+      transform: translateY(-5px);
+      background: rgba(0, 70, 70, 0.6);
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+    .feature-box h3 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent-teal);
+      margin-bottom: 12px;
+    }
+    .feature-box p {
+      font-size: 1rem;
+      color: #f0fdfd;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .home-gallery {
+      max-width: 1100px;
+      margin: 20px auto 70px;
+      padding: 0 15px;
+    }
+    .home-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-auto-rows: 160px;
+      gap: 16px;
+    }
+    .home-gallery-item {
+      position: relative;
+      grid-column: span 5;
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 22px;
+      background: rgba(0, 45, 45, 0.7);
+      box-shadow: 0 14px 32px rgba(0, 30, 30, 0.24);
+    }
+    .home-gallery-item--hero {
+      grid-column: 1 / -1;
+      grid-row: span 3;
+      min-height: 512px;
+    }
+    .home-gallery-item:nth-child(2),
+    .home-gallery-item:nth-child(5) {
+      grid-column: span 7;
+      grid-row: span 2;
+      min-height: 336px;
+    }
+    .home-gallery-item:nth-child(3),
+    .home-gallery-item:nth-child(4) {
+      grid-column: span 5;
+      grid-row: span 2;
+      min-height: 336px;
+    }
+    .home-gallery-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.55s ease;
+    }
+    .home-gallery-item:hover img {
+      transform: scale(1.04);
+    }
+    .home-gallery-item--hero {
+      background: linear-gradient(145deg, #075d5a, #003b3a 72%, #002f31);
+    }
+    .home-gallery-item--hero img {
+      position: absolute;
+      inset: 0 0 0 58%;
+      width: 42%;
+      object-position: center 48%;
+    }
+    .home-gallery-item.home-gallery-item--hero::after {
+      inset: 0 0 0 58%;
+      background: linear-gradient(90deg, rgba(0, 43, 42, 0.08), rgba(0, 25, 27, 0.18));
+    }
+    .home-gallery-item::after {
+      position: absolute;
+      inset: 25% 0 0;
+      content: "";
+      background: linear-gradient(180deg, transparent, rgba(0, 24, 26, 0.82));
+      pointer-events: none;
+    }
+    .home-gallery-item figcaption {
+      position: absolute;
+      z-index: 1;
+      right: 22px;
+      bottom: 20px;
+      left: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+    .home-gallery-item figcaption span {
+      color: #baf5ec;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .home-gallery-item figcaption strong {
+      font-size: clamp(1rem, 2.1vw, 1.35rem);
+      line-height: 1.35;
+    }
+    .home-gallery-item figcaption .home-gallery-copy {
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: normal;
+      line-height: 1.45;
+      text-transform: none;
+    }
+    .home-gallery-item--hero figcaption.home-photo-hero {
+      top: 0;
+      right: auto;
+      bottom: 0;
+      left: 0;
+      width: 58%;
+      box-sizing: border-box;
+      justify-content: center;
+      gap: 18px;
+      padding: clamp(28px, 4vw, 52px);
+      border: 0;
+      border-right: 1px solid rgba(255,255,255,.14);
+      border-left: 0;
+      border-radius: 20px 0 0 20px;
+      background: linear-gradient(145deg, #075d5a, #004542 62%, #003333);
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      text-shadow: none;
+      transform: none;
+    }
+    .home-photo-hero .home-photo-kicker {
+      color: #baf5ec;
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-weight: 700;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+    .home-photo-hero h1 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(2rem, 3.1vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.08;
+    }
+    .home-photo-hero p {
+      margin: 0;
+      color: rgba(255,255,255,.95);
+      font-size: clamp(1rem, 1.55vw, 1.2rem);
+      line-height: 1.6;
+    }
+    .home-photo-hero .hero-buttons-row {
+      margin-top: 4px;
+    }
+
+    @media screen and (max-width: 850px) {
+      .home-gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(320px, auto);
+      }
+      .home-gallery-item,
+      .home-gallery-item:nth-child(n+2) {
+        grid-column: span 2;
+        grid-row: auto;
+        min-height: 320px;
+      }
+      .home-gallery-item--hero {
+        min-height: 500px;
+      }
+    }
+    @media screen and (max-width: 520px) {
+      .home-gallery {
+        margin-bottom: 48px;
+      }
+      .home-gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(320px, auto);
+        gap: 12px;
+      }
+      .home-gallery-item,
+      .home-gallery-item:nth-child(n+2) {
+        grid-column: span 1;
+        grid-row: auto;
+        min-height: 320px;
+      }
+      .home-gallery-item--hero {
+        grid-column: span 1;
+        grid-row: auto;
+        min-height: 540px;
+      }
+      .home-gallery-item--hero figcaption.home-photo-hero {
+        top: auto;
+        right: 17px;
+        bottom: 20px;
+        left: 17px;
+        width: auto;
+        padding: 22px 18px;
+        transform: none;
+        gap: 12px;
+      }
+      .home-gallery-item figcaption {
+        right: 17px;
+        bottom: 16px;
+        left: 17px;
+      }
+    }
+    @media screen and (max-width: 650px) {
+      .home-gallery-grid {
+        display: block;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+      }
+      .home-gallery-item:not(.home-gallery-item--hero) {
+        display: none;
+      }
+      .home-gallery-item--hero {
+        display: flex;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+      }
+      .home-gallery-item--hero img {
+        inset: 0 0 auto;
+        width: 100%;
+        height: 220px;
+        object-position: center 55%;
+      }
+      .home-gallery-item.home-gallery-item--hero::after {
+        inset: 0 0 auto;
+        height: 220px;
+        background: linear-gradient(180deg, transparent 55%, rgba(0, 48, 48, .55));
+      }
+      .home-gallery-item--hero figcaption.home-photo-hero {
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 220px;
+        padding: 22px 20px 26px;
+        gap: 11px;
+        border: 0;
+        border-top: 1px solid rgba(255,255,255,.16);
+        border-left: 0;
+        border-radius: 0;
+        background: linear-gradient(180deg, #064542, #003b3a);
+        transform: none;
+      }
+      .home-photo-hero h1 {
+        font-size: clamp(1.75rem, 7.2vw, 2.35rem);
+      }
+      .home-photo-hero p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      .home-photo-hero .hero-buttons-row {
+        gap: 10px;
+      }
+      .home-photo-hero .hero-btn-primary,
+      .home-photo-hero .hero-btn-secondary {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 24px;
+      }
+      .feature-box {
+        position: relative;
+        display: flex;
+        min-height: 190px;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: hidden;
+        isolation: isolate;
+        padding: 24px;
+        border-color: rgba(255,255,255,.24);
+        background: #003c3d;
+        text-align: left;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+      .feature-box::before,
+      .feature-box::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        pointer-events: none;
+      }
+      .feature-box::before {
+        z-index: -2;
+        background-image: var(--feature-image);
+        background-position: center;
+        background-size: cover;
+        opacity: .7;
+      }
+      .feature-box::after {
+        z-index: -1;
+        background: linear-gradient(90deg, rgba(0,30,31,.9), rgba(0,35,36,.48)), linear-gradient(0deg, rgba(0,24,26,.75), transparent 85%);
+      }
+      .feature-box:nth-child(1) {
+        --feature-image: url("images/home-coffee-making.jpg");
+      }
+      .feature-box:nth-child(2) {
+        --feature-image: url("images/home-guest-service.jpg");
+      }
+      .feature-box:nth-child(2)::before {
+        background-position: center 42%;
+        background-size: cover;
+      }
+      .feature-box:nth-child(3) {
+        --feature-image: url("images/home-barista-service.jpg");
+      }
+      .feature-box h3 {
+        position: relative;
+        margin: 0 0 8px;
+        color: #baf5ec;
+        font-size: 1.55rem;
+        text-shadow: 0 2px 12px rgba(0,0,0,.6);
+      }
+      .feature-box p {
+        position: relative;
+        max-width: 36rem;
+        color: #fff;
+        font-size: 1rem;
+        line-height: 1.55;
+        text-shadow: 0 2px 12px rgba(0,0,0,.8);
+      }
+    }  </style>
+</head>
+<body>
+<div id="zebra-intro" data-no-translate>
+<div class="zi-bg"></div>
+<div class="zi-logo"><svg class="stage" viewBox="0 0 209 203" style="--fill:7.40s" aria-label="Zebra Coffee"><g fill-rule="evenodd"><path class="zp h" pathLength="1" d="M114.25 3.07 L107.25 3.08 L100.50 4.17 L95.50 5.53 L90.25 7.47 L85.25 10.00 L81.25 12.55 L80.00 14.22 L80.58 15.23 L82.75 15.40 L87.25 14.78 L102.50 11.52 L107.00 11.25 L110.25 11.67 L114.25 13.12 L117.15 15.35 L120.25 19.50 L121.67 23.00 L122.60 28.00 L122.60 33.75 L121.48 41.25 L120.02 47.25 L116.87 56.75 L112.92 66.50 L100.75 91.75 L97.93 101.25 L97.80 105.50 L98.82 108.75 L101.00 111.17 L104.00 112.17 L107.50 112.10 L110.25 111.52 L115.50 109.33 L119.00 107.42 L122.25 105.13 L126.50 101.43 L132.32 94.50 L137.13 86.25 L139.38 81.25 L141.47 75.25 L143.83 65.75 L144.67 60.00 L145.13 52.25 L145.73 50.93 L146.40 52.50 L146.75 60.00 L145.92 69.50 L143.55 79.75 L143.55 80.90 L144.45 80.23 L146.22 76.75 L149.03 69.25 L150.75 61.50 L151.60 55.00 L151.62 44.25 L149.87 33.75 L147.23 26.25 L144.98 21.75 L142.70 18.25 L138.25 13.08 L134.75 10.27 L130.75 7.80 L127.25 6.13 L122.50 4.58Z" style="--d:0.10s;--t:1.9s"/><path class="zp h" pathLength="1" d="M115.07 20.50 L114.57 19.40 L113.50 18.53 L109.25 17.33 L101.50 17.00 L95.00 17.60 L87.00 18.92 L77.00 21.27 L72.75 23.18 L71.77 24.12 L71.52 25.10 L72.52 26.10 L75.25 26.50 L88.25 27.00 L99.00 26.85 L106.25 25.80 L111.00 24.42 L114.13 22.55 L114.93 21.47Z" style="--d:0.65s;--t:1.9s"/><path class="zp h" pathLength="1" d="M118.03 33.65 L117.20 32.70 L115.50 32.17 L107.25 32.17 L90.25 34.02 L77.25 36.62 L68.50 39.72 L63.25 42.78 L61.28 44.52 L59.78 46.50 L59.12 48.50 L59.27 50.25 L60.40 52.15 L62.50 53.57 L65.00 54.08 L69.00 53.58 L74.25 51.30 L81.75 48.78 L97.75 44.48 L107.00 41.23 L116.00 36.57 L117.73 34.93Z" style="--d:1.20s;--t:1.9s"/><path class="zp h" pathLength="1" d="M114.33 48.57 L113.83 47.73 L112.50 47.33 L103.75 48.30 L98.75 49.40 L97.45 50.30 L97.12 51.23 L97.80 52.35 L100.25 53.48 L103.75 54.17 L107.25 54.15 L109.75 53.42 L112.00 52.02 L113.77 50.25Z" style="--d:1.75s;--t:1.9s"/><path class="zp h" pathLength="1" d="M105.23 62.27 L103.00 60.37 L99.50 59.13 L91.25 57.90 L81.75 57.08 L74.25 58.07 L68.75 59.70 L64.25 61.70 L60.83 64.50 L59.25 67.25 L59.22 68.75 L59.68 70.00 L60.80 71.33 L62.00 72.12 L63.50 72.58 L65.25 72.58 L77.25 70.07 L80.73 69.63 L81.55 70.17 L80.50 71.38 L68.75 77.52 L66.03 79.55 L64.45 81.50 L63.63 83.25 L63.42 85.00 L63.97 86.75 L65.28 88.27 L66.75 89.02 L68.50 89.20 L70.50 88.85 L73.50 87.50 L83.50 81.83 L89.50 79.22 L93.50 77.03 L99.50 73.07 L104.25 68.50 L105.23 67.00 L105.90 65.00 L105.88 63.75Z" style="--d:2.30s;--t:1.9s"/><path class="zp h" pathLength="1" d="M91.47 86.62 L90.00 86.35 L87.00 87.35 L73.25 93.67 L72.02 94.82 L71.48 96.00 L71.50 97.00 L72.15 98.50 L74.25 100.92 L77.75 103.38 L80.50 103.92 L83.00 103.02 L85.68 100.50 L88.15 96.50 L91.27 89.00 L91.67 87.52Z" style="--d:2.85s;--t:1.9s"/><path class="zp" pathLength="1" d="M8.48 131.47 L7.83 132.52 L7.72 134.00 L8.18 135.25 L9.05 135.83 L23.50 136.02 L24.43 136.35 L24.67 136.92 L23.57 139.00 L7.70 160.00 L6.78 162.50 L7.22 164.47 L8.75 165.07 L32.00 165.05 L33.27 164.70 L33.98 163.48 L34.02 162.25 L33.55 161.00 L32.48 160.35 L16.75 160.25 L15.68 160.00 L15.27 159.33 L15.93 157.75 L32.32 136.00 L33.22 133.50 L32.78 131.75 L31.00 131.00 L10.00 131.00Z" style="--d:3.40s;--t:1.3s"/><path class="zp" pathLength="1" d="M48.77 131.47 L48.18 132.30 L48.00 133.50 L48.00 162.75 L48.37 164.25 L50.00 165.00 L71.00 165.05 L72.50 164.58 L73.15 163.48 L73.18 162.25 L72.77 161.17 L71.72 160.42 L55.50 160.20 L53.98 159.33 L53.50 157.50 L53.53 151.75 L53.87 150.55 L54.43 149.90 L56.00 149.43 L67.23 149.45 L68.52 148.75 L69.00 147.00 L68.53 145.22 L67.25 144.52 L56.25 144.50 L54.45 144.02 L53.55 142.25 L53.52 138.25 L53.97 136.92 L54.80 136.25 L56.00 136.00 L71.22 135.88 L72.13 135.38 L72.63 134.47 L72.70 133.00 L72.25 131.77 L71.42 131.18 L70.25 131.00 L50.25 131.00Z" style="--d:3.72s;--t:1.3s"/><path class="zp" pathLength="1" d="M88.27 131.48 L87.68 132.32 L87.50 133.50 L87.50 162.75 L87.97 164.30 L89.75 165.05 L106.00 165.00 L109.25 164.40 L112.23 162.82 L113.77 161.40 L115.10 159.25 L115.65 157.25 L115.75 155.00 L115.35 152.50 L114.42 150.50 L113.13 148.90 L110.85 147.10 L110.45 146.35 L110.67 145.25 L112.40 142.50 L112.95 140.25 L112.75 137.25 L111.45 134.52 L108.75 132.25 L104.75 131.08 L90.00 131.00ZM92.92 151.03 L93.67 149.98 L95.00 149.53 L102.50 149.50 L105.75 149.90 L107.50 150.65 L109.12 152.27 L109.87 154.25 L109.77 156.00 L108.37 158.38 L105.50 159.98 L103.25 160.25 L94.27 160.08 L93.22 159.33 L92.80 158.25ZM92.85 137.75 L93.50 136.60 L94.75 136.05 L104.00 136.20 L105.70 136.92 L106.90 138.07 L107.62 139.75 L107.58 141.00 L106.58 142.93 L104.25 144.42 L101.75 144.75 L94.27 144.65 L93.22 144.00 L92.80 143.00Z" style="--d:4.04s;--t:1.3s"/><path class="zp" pathLength="1" d="M131.27 131.48 L130.68 132.32 L130.50 133.50 L130.50 162.75 L130.97 164.30 L132.02 164.95 L133.75 165.10 L135.08 164.72 L135.75 163.93 L136.00 153.00 L136.47 151.50 L137.75 150.80 L142.00 150.75 L143.70 151.22 L145.00 152.27 L153.92 164.25 L155.75 165.03 L158.50 165.03 L159.45 164.70 L159.65 163.92 L159.30 163.00 L151.22 151.28 L151.63 149.87 L154.45 147.82 L155.85 146.25 L157.33 142.75 L157.57 140.50 L157.22 138.25 L156.55 136.50 L155.37 134.75 L152.50 132.37 L149.00 131.20 L133.00 131.00ZM136.17 137.30 L136.75 136.47 L138.00 136.02 L146.25 136.00 L148.50 136.38 L150.18 137.30 L151.42 138.75 L151.90 140.25 L151.75 142.25 L150.22 144.55 L147.75 145.73 L145.25 146.00 L137.30 145.83 L136.47 145.25 L136.02 144.00Z" style="--d:4.36s;--t:1.3s"/><path class="zp" pathLength="1" d="M186.67 131.12 L185.38 132.52 L172.33 162.25 L171.92 163.48 L172.07 164.47 L172.80 164.97 L174.25 165.12 L176.77 164.45 L177.83 163.00 L179.88 158.28 L181.53 156.93 L194.50 156.75 L195.95 157.02 L197.12 157.87 L199.70 163.25 L200.70 164.47 L202.25 165.07 L205.07 164.82 L205.55 163.93 L205.18 162.50 L192.13 132.75 L191.23 131.52 L190.22 130.93 L188.25 130.75ZM188.45 139.35 L189.18 139.52 L189.93 140.50 L193.95 149.75 L194.00 151.08 L193.20 151.83 L185.00 151.98 L183.88 151.65 L183.38 151.08 L183.55 149.25 L187.53 140.25Z" style="--d:4.68s;--t:1.3s"/><path class="zp" pathLength="1" d="M3.45 190.78 L4.50 191.38 L50.25 191.50 L51.42 191.32 L52.02 190.82 L50.75 190.25 L4.05 190.30Z" style="--d:5.00s;--t:1.0s"/><path class="zp" pathLength="1" d="M65.75 183.43 L63.00 184.47 L60.55 186.75 L59.27 189.50 L59.17 193.00 L60.22 195.75 L62.50 198.27 L65.00 199.57 L68.50 199.88 L70.73 199.23 L71.73 198.07 L70.95 197.77 L67.50 198.25 L64.50 197.60 L61.98 195.50 L60.90 193.00 L60.82 190.75 L61.18 189.00 L62.00 187.53 L63.50 186.05 L66.25 184.90 L70.68 185.18 L71.37 184.80 L70.87 184.07 L69.75 183.58Z" style="--d:5.20s;--t:1.0s"/><path class="zp" pathLength="1" d="M82.75 183.33 L79.50 184.20 L76.98 186.27 L75.62 188.75 L75.22 192.25 L75.98 195.25 L77.80 197.63 L80.50 199.33 L83.50 199.98 L86.50 199.33 L89.40 197.43 L91.20 194.75 L91.88 191.25 L91.05 188.00 L88.93 185.25 L86.00 183.68ZM81.50 185.10 L84.00 184.80 L86.25 185.40 L88.42 187.03 L89.85 189.50 L90.12 192.25 L89.37 194.75 L87.93 196.57 L85.50 197.93 L82.75 198.20 L80.50 197.60 L78.22 195.73 L77.08 193.50 L76.85 190.75 L77.60 188.27 L79.28 186.30Z" style="--d:5.40s;--t:1.0s"/><path class="zp" pathLength="1" d="M99.75 176.38 L98.22 177.42 L97.47 178.50 L96.53 182.83 L94.37 184.38 L96.37 185.80 L96.92 187.00 L97.15 198.15 L97.83 198.73 L98.47 197.50 L98.50 187.50 L98.85 186.12 L100.25 185.22 L104.50 185.15 L105.80 185.52 L106.62 186.77 L106.68 197.50 L107.00 198.45 L107.53 198.62 L108.07 197.25 L108.20 186.55 L109.13 185.40 L112.45 185.02 L113.15 184.47 L112.45 183.87 L110.00 183.70 L108.93 183.28 L108.18 182.23 L108.18 180.50 L109.57 178.30 L110.75 177.77 L112.82 177.55 L113.12 177.05 L111.50 176.18 L110.00 176.22 L108.75 176.70 L106.95 178.75 L106.50 182.23 L105.98 183.15 L104.50 183.73 L101.00 183.75 L99.60 183.40 L98.85 182.65 L98.57 181.25 L98.87 179.75 L100.30 178.02 L103.13 177.55 L103.53 177.07 L102.95 176.45 L102.00 176.15Z" style="--d:5.60s;--t:1.0s"/><path class="zp" pathLength="1" d="M120.75 183.60 L118.03 184.97 L115.83 187.75 L115.00 191.25 L115.48 194.25 L117.55 197.43 L120.50 199.35 L123.75 200.00 L126.75 199.42 L127.98 198.63 L128.10 197.88 L123.50 198.25 L121.00 197.83 L118.63 196.33 L117.07 194.00 L117.10 192.75 L118.02 192.10 L128.00 191.97 L129.32 191.52 L129.92 190.68 L129.98 189.50 L129.43 187.75 L128.43 186.02 L127.20 184.73 L124.25 183.45ZM117.22 188.75 L117.78 187.50 L119.25 185.97 L121.00 185.05 L123.00 184.82 L124.75 185.17 L126.47 186.18 L127.65 187.50 L128.20 188.98 L127.88 189.90 L126.75 190.45 L119.25 190.50 L117.70 190.03Z" style="--d:5.80s;--t:1.0s"/><path class="zp" pathLength="1" d="M137.75 183.88 L135.30 185.55 L133.50 188.25 L132.85 192.00 L133.52 194.75 L135.23 197.30 L138.25 199.27 L141.50 199.98 L144.75 199.38 L145.78 198.70 L145.98 197.98 L145.23 197.78 L140.75 198.20 L137.50 197.08 L135.45 195.00 L134.82 193.10 L135.25 192.35 L136.25 192.02 L146.68 191.82 L147.52 191.23 L147.85 190.47 L147.40 188.00 L145.65 185.33 L143.50 183.88 L141.00 183.33ZM135.08 188.98 L135.50 187.75 L136.82 186.20 L138.25 185.30 L140.25 184.82 L142.00 184.93 L143.75 185.75 L145.45 187.50 L146.00 188.97 L145.35 190.13 L143.75 190.50 L136.50 190.45 L135.38 189.90Z" style="--d:6.00s;--t:1.0s"/><path class="zp" pathLength="1" d="M154.95 191.33 L155.37 191.75 L156.75 192.00 L202.98 191.87 L203.68 191.38 L203.35 190.98 L202.25 190.75 L156.50 190.75 L155.37 190.93Z" style="--d:6.20s;--t:1.0s"/></g></svg></div>
+<div class="zi-load" aria-hidden="true"><i></i></div>
+<div id="zi-lang">
+  <h2 class="zr zi-in" id="zi-title" style="--dl:.05s" aria-live="off"></h2>
+  <p class="zr zi-in" id="zi-sub" style="--dl:.2s"></p>
+  <div class="zi-chips zi-in" role="group" aria-label="Language" style="--dl:.35s">
+    <button type="button" class="zi-chip" data-lang="en" aria-pressed="false">English</button>
+    <button type="button" class="zi-chip" data-lang="ru" aria-pressed="false">Русский</button>
+    <button type="button" class="zi-chip" data-lang="kk" aria-pressed="false">Қазақша</button>
+  </div>
+  <button type="button" class="zi-go zi-in" id="zi-go" style="--dl:.5s"><span class="zr" id="zi-gotxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+</div>
+<button type="button" id="zi-skip">Skip</button>
+</div>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo-container">
+        <img src="images/zebra-mark-white.png" alt="Zebra Coffee" class="logo-img">
+        <div class="logo-brand-text">
+          <span class="logo-brand-title">ZEBRA COFFEE</span>
+          <span class="logo-brand-subtitle">Кофе, который объединяет</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Главная</a></li>
+          <li><a href="menu.html">Меню</a></li>
+          <li><a href="about.html">Основатель</a></li>
+          <li><a href="zebra-coins.html">Zebra Coins</a></li>
+          <li><a href="addresses.html">Адреса</a></li>
+          <li><a href="job.html">Работа у нас</a></li>
+          <li><a href="creators.html">The Creator</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="home-gallery" aria-label="Zebra Coffee">
+      <div class="home-gallery-grid">
+        <figure class="home-gallery-item home-gallery-item--hero">
+          <img src="images/home-interior.jpg" alt="Уютный интерьер кофейни Zebra Coffee" loading="eager" decoding="async">
+          <figcaption class="home-photo-hero">
+            <span class="home-photo-kicker">Ваш любимый ритуал в Zebra Coffee.</span>
+            <h1>КОФЕ, УЮТ И ЗАБОТА — В ZEBRA COFFEE</h1>
+            <p>Вкуснейший кофе, свежие десерты и уютный уголок в центре города. Место, где приятно собраться всей семьёй и подарить себе минутку удовольствия.</p>
+            <div class="hero-buttons-row">
+              <a href="menu.html" class="hero-btn-primary">Открыть меню</a>
+              <a href="zebra-coins.html" class="hero-btn-secondary">Zebra Coins &amp; Скидки</a>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="home-gallery-item">
+          <img src="images/home-coffee-making.jpg" alt="Бариста готовит кофе на профессиональной кофемашине" loading="lazy" decoding="async">
+          <figcaption><strong>Готовим с любовью и мастерством</strong><span class="home-gallery-copy">Наша команда бариста доводит каждую чашку до идеала на профессиональном оборудовании. Горячий кофе — именно так, как ты любишь!</span></figcaption>
+        </figure>
+        <figure class="home-gallery-item">
+          <img src="images/home-cafe-team.jpg" alt="Команда Zebra Coffee за работой" loading="lazy" decoding="async">
+          <figcaption><strong>Программа лояльности Zebra Coins</strong><span class="home-gallery-copy">Скачивайте наше мобильное приложение, сканируйте персональный QR-код на кассе при каждой покупке и получайте дополнительную скидку и бонусы за каждый напиток.</span></figcaption>
+        </figure>
+        <figure class="home-gallery-item">
+          <img src="images/home-barista-service.jpg" alt="Бариста помогает гостям выбрать напиток" loading="lazy" decoding="async">
+          <figcaption><strong>Огромный выбор напитков на любой вкус</strong><span class="home-gallery-copy">Классический горячий кофе, освежающие холодные Frappe, ароматные чаи и фирменные рецепты Zebra Coffee. Найди свой любимый вкус!</span></figcaption>
+        </figure>
+        <figure class="home-gallery-item">
+          <img src="images/home-guest-service.jpg" alt="Гость оформляет заказ в Zebra Coffee" loading="lazy" decoding="async">
+          <figcaption><strong>Напитки и лакомства для всей семьи!</strong><span class="home-gallery-copy">Порадуйте себя и близких: молочные коктейли, сочные лимонады и авторские напитки, которые понравятся детям и вашей второй половинке!</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="features-grid">
+      <div class="feature-box">
+        <h3>100%</h3>
+        <p>Арабика свежей обжарки высокого качества для каждого нашего гостя.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Zebra Coins</h3>
+        <p>Установите приложение, показывайте QR-код на кассе и получайте скидку на покупки.</p>
+      </div>
+      <div class="feature-box">
+        <h3>3 вида</h3>
+        <p>Выбирайте зерно на свой вкус: классический Blend, 100% Arabica или Decaf без кофеина.</p>
+      </div>
+    </div>
+
+
+  </div>
+
+  <footer>
+    <p>© 2026 Zebra Coffee — Павлодар. Создатель сайта: <strong>Ибрагимов Гурбан</strong></p>
+  </footer>
+
+  <script src="intro.js" defer></script>
+  <script src="i18n.js" defer></script>
+</body>
+</html>
