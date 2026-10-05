@@ -706,7 +706,7 @@
     wrap.className = "language-switcher";
     wrap.innerHTML = '<label for="siteLanguage" data-language-label>Language</label><select id="siteLanguage" aria-label="Language"><option value="en">English</option><option value="ru">Русский</option><option value="kk">Қазақша</option></select>';
     nav.appendChild(wrap);
-    wrap.querySelector("select").addEventListener("change", event => setLanguage(event.target.value));
+    wrap.querySelector("select").addEventListener("change", event => { const value = event.target.value; if (window.ZebraLangLoader) window.ZebraLangLoader.run(value, () => setLanguage(value)); else setLanguage(value); });
   }
 
   function translatePage(language) {
@@ -750,7 +750,8 @@
   function init() {
     ensureSwitcher();
     setLanguage(readSavedLanguage());
-    const observer = new MutationObserver(() => {
+    const observer = new MutationObserver(records => {
+      if (records.every(r => { const el = r.target.nodeType === 1 ? r.target : r.target.parentElement; return el && el.closest("#zebra-intro,[data-no-translate]"); })) return;
       clearTimeout(window.__zebraTranslationTimer);
       window.__zebraTranslationTimer = setTimeout(() => translatePage(readSavedLanguage()), 30);
     });

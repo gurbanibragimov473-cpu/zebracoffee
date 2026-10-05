@@ -1,0 +1,18 @@
+/* The Creator: нумерация, зум фото, оформление */
+.creator-hero-divider{width:96px!important;height:7px!important;border-radius:7px!important;background:repeating-linear-gradient(115deg,#fff 0 9px,transparent 9px 16px)!important;opacity:.9}
+.creator-hero-section h1{text-shadow:0 8px 34px rgba(0,60,60,.35)}
+.creator-magazine-grid{counter-reset:ch}
+.creator-card{counter-increment:ch;border-radius:28px!important}
+.card-info-box{position:relative}
+.card-info-box::after{content:counter(ch,decimal-leading-zero);position:absolute;right:20px;top:12px;font-size:clamp(3.2rem,9vw,4.8rem);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);pointer-events:none}
+.card-info-box h2{padding-right:72px;position:relative}
+.card-info-box h2::after{content:"";display:block;width:46px;height:4px;margin-top:10px;border-radius:4px;background:repeating-linear-gradient(115deg,#a3e4d7 0 6px,transparent 6px 10px)}
+.card-img-box{cursor:zoom-in}
+.card-img-box::before{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(0deg,rgba(0,40,40,.6),transparent);pointer-events:none;z-index:1}
+.card-img-box::after{content:"";position:absolute;right:14px;bottom:14px;width:46px;height:46px;border-radius:50%;z-index:2;pointer-events:none;background:rgba(255,255,255,.94) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007a7a' stroke-width='2.4' stroke-linecap='round'><circle cx='11' cy='11' r='6.5'/><path d='M16 16l5 5M11 8v6M8 11h6'/></svg>") center/22px no-repeat;box-shadow:0 10px 24px rgba(0,40,40,.4);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.creator-card:hover .card-img-box::after{transform:scale(1.14) rotate(-8deg)}
+.creator-card.featured:nth-child(4){flex-direction:row-reverse}
+.creator-card.featured:nth-child(4) .card-img-box{border-right:none!important;border-left:1px solid rgba(255,255,255,.15)}
+@media (max-width:768px){.creator-card.featured:nth-child(4){flex-direction:column}}
+.creator-ultimate-footer{border-radius:30px!important;overflow:hidden}
+.creator-ultimate-footer::before{content:"\201C";position:absolute;left:22px;top:-18px;font-size:9rem;font-weight:900;line-height:1;color:rgba(255,255,255,.12);pointer-events:none}
