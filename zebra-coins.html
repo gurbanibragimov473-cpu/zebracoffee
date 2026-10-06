@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Программа лояльности — Zebra Coffee</title>
   <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
+  <script>try{if(sessionStorage.getItem('zebra-pt')){sessionStorage.removeItem('zebra-pt');document.documentElement.classList.add('pt-enter')}}catch(e){}</script>
+  <link rel="stylesheet" href="page-transition.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,11 +87,11 @@
       transform: scale(1.01);
       transition: transform 0.55s ease;
     }
-    .step-card:nth-child(1) { --step-image: url("images/coins-step-app.png"); }
+    .step-card:nth-child(1) { --step-image: url("images/28.png"); }
     .step-card:nth-child(1)::before { background-position: center 28%; }
-    .step-card:nth-child(2) { --step-image: url("images/coins-step-scan.png"); }
+    .step-card:nth-child(2) { --step-image: url("images/29.png"); }
     .step-card:nth-child(2)::before { background-position: center 52%; }
-    .step-card:nth-child(3) { --step-image: url("images/coins-step-rewards.png"); }
+    .step-card:nth-child(3) { --step-image: url("images/30.png"); }
     .step-card:nth-child(3)::before { background-position: center 48%; }
     .step-card:hover {
       transform: translateY(-6px);
@@ -327,6 +329,7 @@
       .store-btn { width: 100%; justify-content: center; box-sizing: border-box; }
     }
   </style>
+  <link rel="stylesheet" href="coins-extra.css">
 </head>
 <body>
 
@@ -354,10 +357,8 @@
   </header>
 
   <div class="container">
-    <div class="loyalty-hero">
-      <h1>ПРОГРАММА ЛОЯЛЬНОСТИ</h1>
-      <p>Копи баллы за каждую покупку, повышай свой рейтинг и получай скидку до 10% на всё меню в мобильном приложении!</p>
-    </div>
+    <div class="loyalty-hero lh-new"><div class="lh-text"><h1>ПРОГРАММА ЛОЯЛЬНОСТИ</h1>
+      <p>Копи баллы за каждую покупку, повышай свой рейтинг и получай скидку до 10% на всё меню в мобильном приложении!</p></div><div class="lh-photos" aria-hidden="false"><figure class="lh-ph p1"><img src="images/38.jpg" alt="Zebra Coffee"></figure><figure class="lh-ph p2"><img src="images/39.jpg" alt="Zebra Coffee"></figure><figure class="lh-ph p3"><img src="images/40.jpg" alt="Zebra Coffee Store"></figure><span class="lh-coin c1">+10</span><span class="lh-coin c2">10%</span></div></div>
 
     <div class="steps-section">
       <div class="section-heading">Как начать копить и экономить?</div>
@@ -514,9 +515,7 @@
     </div>
   </div>
 
-  <footer>
-    <p>© 2026 Zebra Coffee — Павлодар. Создатель сайта: <strong>Ибрагимов Гурбан</strong></p>
-  </footer>
+  <footer class="ft-min"><p data-no-translate>© 2026 Zebra Coffee</p></footer>
 
   <script>
     function toggleFaq(element) {
@@ -531,6 +530,8 @@
     }  </script>
   <script src="scroll-progress.js" defer></script>
   <script src="site-fx.js" defer></script>
+  <script src="page-transition.js" defer></script>
+  <script src="site-ui.js" defer></script>
   <script src="lang-loader.js" defer></script>
   <script src="i18n.js" defer></script>
 </body>

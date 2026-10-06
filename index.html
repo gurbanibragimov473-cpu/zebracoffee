@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zebra Coffee</title>
   <link rel="icon" type="image/x-icon" href="images/unnamed (1).ico">
+  <script>try{if(sessionStorage.getItem('zebra-pt')){sessionStorage.removeItem('zebra-pt');document.documentElement.classList.add('pt-enter')}}catch(e){}</script>
+  <link rel="stylesheet" href="page-transition.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="intro.css">
   <script>(function(){var h=document.documentElement;try{h.classList.add(sessionStorage.getItem('zebra-intro-seen')?'zi-seen':'zi-intro')}catch(e){h.classList.add('zi-intro')}if(h.classList.contains('zi-intro')){var m=document.createElement('meta');m.name='theme-color';m.id='zi-tc';m.content='#031211';document.head.appendChild(m)}setTimeout(function(){if(window.__ziOK)return;var b=document.getElementById('zebra-intro');if(b)b.remove();h.classList.remove('zi-intro');if(document.body)document.body.classList.remove('zi-lock')},25000)})();</script>
@@ -444,17 +446,17 @@
         background: linear-gradient(90deg, rgba(0,30,31,.9), rgba(0,35,36,.48)), linear-gradient(0deg, rgba(0,24,26,.75), transparent 85%);
       }
       .feature-box:nth-child(1) {
-        --feature-image: url("images/home-coffee-making.jpg");
+        --feature-image: url("images/21.jpg");
       }
       .feature-box:nth-child(2) {
-        --feature-image: url("images/home-guest-service.jpg");
+        --feature-image: url("images/22.jpg");
       }
       .feature-box:nth-child(2)::before {
         background-position: center 42%;
         background-size: cover;
       }
       .feature-box:nth-child(3) {
-        --feature-image: url("images/home-barista-service.jpg");
+        --feature-image: url("images/19.jpg");
       }
       .feature-box h3 {
         position: relative;
@@ -528,7 +530,7 @@
     <section class="home-gallery" aria-label="Zebra Coffee">
       <div class="home-gallery-grid">
         <figure class="home-gallery-item home-gallery-item--hero">
-          <img src="images/home-interior.jpg" alt="Уютный интерьер кофейни Zebra Coffee" loading="eager" decoding="async">
+          <img src="images/23.jpg" alt="Уютный интерьер кофейни Zebra Coffee" loading="eager" decoding="async">
           <figcaption class="home-photo-hero">
             <span class="home-photo-kicker">Ваш любимый ритуал в Zebra Coffee.</span>
             <h1>КОФЕ, УЮТ И ЗАБОТА — В ZEBRA COFFEE</h1>
@@ -540,19 +542,19 @@
           </figcaption>
         </figure>
         <figure class="home-gallery-item">
-          <img src="images/home-coffee-making.jpg" alt="Бариста готовит кофе на профессиональной кофемашине" loading="lazy" decoding="async">
+          <img src="images/21.jpg" alt="Бариста готовит кофе на профессиональной кофемашине" loading="lazy" decoding="async">
           <figcaption><strong>Готовим с любовью и мастерством</strong><span class="home-gallery-copy">Наша команда бариста доводит каждую чашку до идеала на профессиональном оборудовании. Горячий кофе — именно так, как ты любишь!</span></figcaption>
         </figure>
         <figure class="home-gallery-item">
-          <img src="images/home-cafe-team.jpg" alt="Команда Zebra Coffee за работой" loading="lazy" decoding="async">
+          <img src="images/20.jpg" alt="Команда Zebra Coffee за работой" loading="lazy" decoding="async">
           <figcaption><strong>Программа лояльности Zebra Coins</strong><span class="home-gallery-copy">Скачивайте наше мобильное приложение, сканируйте персональный QR-код на кассе при каждой покупке и получайте дополнительную скидку и бонусы за каждый напиток.</span></figcaption>
         </figure>
         <figure class="home-gallery-item">
-          <img src="images/home-barista-service.jpg" alt="Бариста помогает гостям выбрать напиток" loading="lazy" decoding="async">
+          <img src="images/19.jpg" alt="Бариста помогает гостям выбрать напиток" loading="lazy" decoding="async">
           <figcaption><strong>Огромный выбор напитков на любой вкус</strong><span class="home-gallery-copy">Классический горячий кофе, освежающие холодные Frappe, ароматные чаи и фирменные рецепты Zebra Coffee. Найди свой любимый вкус!</span></figcaption>
         </figure>
         <figure class="home-gallery-item">
-          <img src="images/home-guest-service.jpg" alt="Гость оформляет заказ в Zebra Coffee" loading="lazy" decoding="async">
+          <img src="images/22.jpg" alt="Гость оформляет заказ в Zebra Coffee" loading="lazy" decoding="async">
           <figcaption><strong>Напитки и лакомства для всей семьи!</strong><span class="home-gallery-copy">Порадуйте себя и близких: молочные коктейли, сочные лимонады и авторские напитки, которые понравятся детям и вашей второй половинке!</span></figcaption>
         </figure>
       </div>
@@ -576,13 +578,13 @@
 
   </div>
 
-  <footer>
-    <p>© 2026 Zebra Coffee — Павлодар. Создатель сайта: <strong>Ибрагимов Гурбан</strong></p>
-  </footer>
+  <footer class="ft-min"><p data-no-translate>© 2026 Zebra Coffee</p></footer>
 
   <script src="intro.js" defer></script>
   <script src="scroll-progress.js" defer></script>
   <script src="site-fx.js" defer></script>
+  <script src="page-transition.js" defer></script>
+  <script src="site-ui.js" defer></script>
   <script src="lang-loader.js" defer></script>
   <script src="i18n.js" defer></script>
 </body>

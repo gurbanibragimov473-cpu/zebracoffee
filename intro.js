@@ -4,6 +4,12 @@
   var box=document.getElementById('zebra-intro');
   if(!box) return;
   var html=document.documentElement;
+  /* заставка уже была в этой сессии: убрать её и не блокировать прокрутку */
+  if(html.classList.contains('zi-seen')){
+    box.remove(); document.body.classList.remove('zi-lock'); html.classList.remove('zi-intro');
+    window.addEventListener('pageshow',function(){ document.body.classList.remove('zi-lock'); });
+    return;
+  }
   var T_OUT=9300, T_LANG=9700, CYCLE=2000, WAIT_MS=2900;
   var order=['en','ru','kk'];
   var copy={

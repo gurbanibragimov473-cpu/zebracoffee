@@ -1,0 +1,10 @@
+/* Переходы между страницами: страница уходит вверх и растворяется в тёмной завесе, новая поднимается снизу */
+html.pt-enter body>*:not(header):not(script):not(style):not(link):not(#zc-deco):not(#zc-defs):not(#scroll-progress):not(#zl-over){opacity:0;animation:pt-safe 0s 1.6s forwards}
+@keyframes pt-safe{to{opacity:1}}
+html.pt-enter::before,html.pt-exit::before{content:"";position:fixed;left:0;top:0;width:100%;height:100%;z-index:9990;pointer-events:none;background:linear-gradient(0deg,#003a3a 0%,#004c4c 55%,#006362 100%)}
+html.pt-enter::before{animation:pt-cover-safe 0s 1.6s forwards}
+@keyframes pt-cover-safe{to{opacity:0;visibility:hidden}}
+html.pt-exit::before{animation:pt-lift .6s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes pt-lift{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-9vh)}}
+#pt-ov{position:fixed;left:0;top:0;width:100%;height:200vh;z-index:9990;pointer-events:none;will-change:transform;
+background:linear-gradient(180deg,rgba(0,58,58,0) 0%,#004c4c 40%,#003a3a 100%);transform:translateY(100vh)}

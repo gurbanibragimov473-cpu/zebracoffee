@@ -4,15 +4,12 @@
   var css=''
    +'#zc-deco{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:-1}'
    +'#zc-deco .zc{position:absolute;opacity:var(--o,.3);will-change:transform;animation:zc-float var(--dur,24s) ease-in-out var(--dl,0s) infinite alternate}'
-   +'#zc-deco svg{display:block;width:100%;height:auto;overflow:visible;filter:url(#zc-pencil)}'
+   +'#zc-deco svg{display:block;width:100%;height:auto;overflow:visible}'
    +'@keyframes zc-float{0%{transform:translate3d(0,0,0) rotate(var(--r,0deg))}100%{transform:translate3d(var(--dx,40px),var(--dy,-60px),0) rotate(calc(var(--r,0deg) + var(--rr,18deg)))}}'
-   +'.zc-ribbon{position:relative;overflow:hidden;margin:34px -2vw 30px;padding:14px 0;transform:rotate(-1.3deg);background:rgba(0,70,70,.62);border-top:1px solid rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.35);box-shadow:0 14px 34px rgba(0,50,50,.25)}'
-   +'.zc-ribbon div{display:inline-flex;white-space:nowrap;animation:zc-run 28s linear infinite;will-change:transform}'
-   +'.zc-ribbon span{padding:0 22px;font-weight:900;letter-spacing:.18em;font-size:.95rem;color:#fff}'
-   +'.zc-ribbon span:nth-child(even){color:#a3e4d7}'
-   +'@keyframes zc-run{to{transform:translateX(-50%)}}'
    +'html.rv-on .rv{opacity:0!important;transform:translateY(28px)!important}'
    +'html.rv-on .rv.in{opacity:1!important;transform:none!important;transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--rd,0s),transform .9s cubic-bezier(.2,.7,.2,1) var(--rd,0s)!important}'
+   +'html.modal-open #zc-deco .zc,html.pt-busy #zc-deco .zc{animation-play-state:paused}'
+   +'html,body{touch-action:manipulation}'
    +'@media (prefers-reduced-motion:reduce){#zc-deco .zc{animation:none}}';
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
 
@@ -47,10 +44,9 @@
 
   function buildDeco(){
     var body=document.body; if(!body) return;
-    ensureFilter();
     var old=document.getElementById('zc-deco'); if(old) old.remove();
     var H=Math.max(body.scrollHeight,window.innerHeight), W=window.innerWidth, mobile=W<700;
-    var n=Math.max(8,Math.min(mobile?16:30,Math.round(H/(mobile?420:300))));
+    var n=Math.max(6,Math.min(mobile?9:16,Math.round(H/(mobile?560:420))));
     var r=rng(20261005), wrap=document.createElement('div');
     wrap.id='zc-deco'; wrap.setAttribute('aria-hidden','true'); wrap.setAttribute('data-no-translate','');
     for(var i=0;i<n;i++){
@@ -115,19 +111,27 @@
   }
 
 
-  function addRibbon(){
-    var f=document.querySelector('footer');
-    if(!f||document.querySelector('.zc-ribbon')) return;
-    var r=document.createElement('div'); r.className='zc-ribbon'; r.setAttribute('aria-hidden','true'); r.setAttribute('data-no-translate','');
-    var one='<span>ZEBRA COFFEE</span><span>PAVLODAR</span><span>\u2615</span><span>ZEBRA COFFEE</span><span>PAVLODAR</span><span>\u2615</span>';
-    r.innerHTML='<div>'+one+one+one+one+'</div>';
-    f.parentNode.insertBefore(r,f);
+
+
+  /* охрана прокрутки: если окон нет, блокировка снимается (после закрытия окон и возврата на страницу) */
+  function idle(){
+    return !document.querySelector('.modal-overlay.active,#zc-lb.show,#mxCart.show,#zebra-intro,#zl-over,#pt-ov');
   }
+  function unlock(){
+    if(!idle()) return;
+    var h=document.documentElement,b=document.body;
+    h.classList.remove('modal-open'); b.classList.remove('modal-open','zi-lock');
+    if(h.style.overflow==='hidden') h.style.overflow='';
+    if(b.style.overflow==='hidden') b.style.overflow='';
+  }
+  ['wheel','touchmove','keydown','mousedown'].forEach(function(ev){ window.addEventListener(ev,unlock,{passive:true,capture:true}); });
+  window.addEventListener('pageshow',unlock);
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) unlock(); });
 
   function init(){
-    addRibbon(); buildDeco(); reveal();
+    buildDeco(); reveal();
     if(document.documentElement.classList.contains('zi-intro')) window.addEventListener('zebra:opening',function(){ setTimeout(pageEnter,350); },{once:true});
-    else pageEnter();
+    else if(!document.documentElement.classList.contains('pt-enter')) pageEnter();
     window.addEventListener('load',buildDeco);
     var t; window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(buildDeco,300); });
   }
